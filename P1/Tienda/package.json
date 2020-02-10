@@ -1,0 +1,21 @@
+{
+  "name": "Tienda",
+  "description": "Proyecto prueba de tienda web",
+  "keywords": [
+    "ltaw",
+    "test"
+  ],
+  "version": "0.0.1",
+  "author": "Álvaro Martín Menacho",
+  "main": "node server-image.js",
+  "devDependencies": {},
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Martinnello/2019-2020-LTAW-Practicas"
+  },
+  "scripts": {
+    "start": "node server-image.js",
+    "test": "node -v"
+  }
+}
