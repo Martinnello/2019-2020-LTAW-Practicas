@@ -8,6 +8,7 @@ const PUERTO = 8080
 http.createServer((req, res) => {
 console.log("----------> Peticion recibida")
 let q = url.parse(req.url, true);
+console.log(q)
 console.log("Recurso:" + q.pathname.substr(1))
 
 let mime = ""
