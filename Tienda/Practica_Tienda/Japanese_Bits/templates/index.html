@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Japanese Bits</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/micss.css'%}">
+    <link rel="icon" href="{% static 'css/luffy.ico'%}" type="image/x-icon">
+  </head>
+  <body>
+
+    <div class="portada">
+      <img src="{% static 'Img/ejemplo_productos.jpg'%}" width="400" height="250" alt="Japan" class="move">
+    </div>
+
+    <br>
+    <hr>
+    <h1> El país del sol naciente más cerca de tu casa</h1>
+    <br>
+    <hr>
+
+    <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
+    <div class="products">
+      <h2>  Productos </h2>
+
+      <a href="plantilla_items"> <img src="{% static 'Img/dora.webp'%}" width="200" height="200"> </a>
+      <a href="plantilla_items"> <img src="{% static 'Img/shin-chan.webp'%}" width="200" height="200"> </a>
+      <a href="plantilla_items"> <img src="{% static 'Img/conan.webp'%}" width="200" height="200"> </a>
+    </div>
+
+  </body>
+</html>
