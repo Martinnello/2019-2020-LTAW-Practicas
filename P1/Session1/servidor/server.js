@@ -2,7 +2,9 @@
 const PUERTO = 8080;
 
 //-- Modulo http
-const http = require('http');
+const http = require('http')
+const fs = require('fs')
+const url = require('url')
 
 console.log("Arrancando servidor...")
 
@@ -11,15 +13,27 @@ console.log("Arrancando servidor...")
 //-- res: Mensaje de respuesta
 function peticion(req, res) {
 
+
+  let x = url.parse(req.url, true)
+
   //-- Peticion recibida
   console.log("Peticion recibida!")
+  console.log("Recurso (URL): " + req.url)
 
   //-- Crear mensaje de respuesta
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end('Hello World!');
 
+  console.log()
+  fs.readFile('./index.html','utf8', (err, data) => {
+    if (err) {
+    res.writeHead(404, {'Content-Type': 'text/html'})
+    return res.end("404 Not Found")
+    }
+
+    res.writeHead(200, {'Content-Type': 'text/html'})
+    res.write(data)
+    return res.end()
+  })
 }
-
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición
 //-- invoca a la funcion peticion para atenderla
