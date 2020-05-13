@@ -13,25 +13,46 @@ console.log("Arrancando servidor...")
 //-- res: Mensaje de respuesta
 function peticion(req, res) {
 
+  let fileName = ""
 
-  let x = url.parse(req.url, true)
+  if (req.url == "/" ){
+    fileName = "/index.html"
+  }  else {
+    fileName = req.url
+  }
+
+  let ext = fileName.split(".")[-1]
+  let mime = ""
+
+  if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
+    mime = "image/" + ext
+  }
+
+  if (ext == "css" || ext == "html" || ext == "txt"){
+    mime = "text/" + ext
+  }
+
+  if (ext == "ttf"){
+    mime = "font/" + ext
+  }
 
   //-- Peticion recibida
   console.log("Peticion recibida!")
   console.log("Recurso (URL): " + req.url)
 
-  //-- Crear mensaje de respuesta
+  //-- Crear mensaje de respuesta o error
 
   console.log()
-  fs.readFile('./index.html','utf8', (err, data) => {
+  fs.readFile("." + fileName, (err, data) => {
+
     if (err) {
     res.writeHead(404, {'Content-Type': 'text/html'})
     return res.end("404 Not Found")
-    }
-
-    res.writeHead(200, {'Content-Type': 'text/html'})
+  } else {
+    res.writeHead(200, {'Content-Type': mime})
     res.write(data)
     return res.end()
+    }
   })
 }
 //-- Inicializar el servidor
