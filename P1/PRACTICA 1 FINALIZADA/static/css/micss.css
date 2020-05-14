@@ -11,7 +11,7 @@
 h1 {
   font-family: "Anime";
   font-size: 160%;
-  margin-left: 20%;
+  text-align:center;
 }
 
 h2 {
@@ -49,6 +49,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  text-align:justify;
 }
 
 .move {
