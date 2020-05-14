@@ -25,21 +25,6 @@ function peticion(req, res) {
   console.log("Peticion recibida!")
   console.log("Recurso (URL): " + req.url)
 
-  //-- Leer las cookies
-  const cookie = req.headers.cookie
-  console.log("Cookie: " + cookie)
-  content = "Bienvenido a mi tienda "
-
-      //-- No hay ninguna cookie
-      if (!cookie) {
-        content += "\nNo te conozcocemos... Registrate!\n"
-        content += "Accede a /login"
-
-      //-- Hay definida una Cookie.
-      } else {
-        content += "Martin"
-      }
-
   let ext = fileName.split(".")[-1]
   let mime = ""
 
@@ -63,15 +48,22 @@ function peticion(req, res) {
     if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'})
       return res.end("404 Not Found")
-    } else if (ext == "/" ) {
-      res.setHeader('Content-Type', 'text/plain')
-      res.write(content);
-      res.end();
-    } else if (ext == "/login" ) {
-      content = "Registrado! Cookie enviada al navegador!"
-      //-- ESTABLECER LA COOKIE!!
-      res.setHeader('Set-Cookie', 'user=Martin')
     } else {
+      //-- Leer las cookies
+      const cookie = req.headers.cookie
+
+      content = "Bienvenido a mi tienda "
+
+          //-- No hay ninguna cookie
+          if (!cookie) {
+            //content += "\nNo te conozcocemos... Registrate!\n"
+            //content += "Accede a /login"
+            res.setHeader('Set-Cookie','user=Martin')
+          //-- Hay definida una Cookie.
+          } else {
+            //content += "Martin"
+            console.log("Cookie: " + cookie)
+          }
       res.writeHead(200, {'Content-Type': mime})
       res.write(data)
       return res.end()
