@@ -15,6 +15,8 @@ const io = require('socket.io')(http)
 //-- Puerto donde lanzar el servidor
 const PORT = 8080
 
+var num_clients = 0
+
 //-- Lanzar servidor
 http.listen(PORT, function(){
   console.log('Servidor lanzado en puerto ' + PORT)
@@ -26,24 +28,6 @@ app.get('/', (req, res) => {
   let fich = __dirname + '/Chat.html'
   res.sendFile(fich)
   console.log("Acceso a " + fich)
-})
-
-//-- Vista Help
-app.get('/help', (req, res) => {
-  res.send('Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual.');
-  console.log("Acceso a /help")
-})
-
-//-- Vista List
-app.get('/list', (req, res) => {
-  res.send('- /list: Lista de usuarios conectados.');
-  console.log("Acceso a /list")
-});
-
-//-- Vista hello
-app.get('/hello', (req, res) => {
-  res.send('Bienvenido al chat de AMM!')
-  console.log("Acceso a /hello")
 })
 
 //-- Vista date
@@ -61,8 +45,9 @@ app.use('/', express.static(__dirname +'/'))
 io.on('connection', function(socket){
 
   //-- Usuario conectado. Imprimir el identificador de su socket
-  console.log('--> Usuario conectado!. Socket id: ' + socket.id)
-  socket.emit('hello', "Bienvenido al Chat")
+  num_clients += 1
+  console.log('--> Usuario conectado!. Socket id: ' + socket.id + "Usuario nº: " + num_clients.toString())
+  socket.emit('hello', "Servidor: Bienvenido al Chat, eres el usuario: " + num_clients.toString())
 
   //-- Función de retrollamada de mensaje recibido del cliente
    socket.on('msg', (msg) => {
@@ -72,6 +57,28 @@ io.on('connection', function(socket){
    })
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
+  num_clients -= 1
   console.log('--> Usuario Desconectado. Socket id: ' + socket.id)
   })
+
+  // -- Gestión comandos
+  socket.on('cmd', (msg) => {
+    console.log("Servidor: " + socket.id + ': ' + msg);
+    let message = "";
+
+    if (msg == "/help") {
+    message += "Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
+    }else if (msg == "/list") {
+    message += "Número de usuarios conectados = " + num_clients.toString()
+    }else if (msg == "/hello") {
+    message += "Hola, yo soy el servidor"
+    }else if (msg == "/date") {
+    message += new Date();
+    }else {
+    message += "Comando incorrecto, /help para más información"
+    }
+
+    socket.emit('msg', message)
+  })
+
 })
