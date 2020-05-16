@@ -63,6 +63,13 @@ io.on('connection', function(socket){
   //-- Usuario conectado. Imprimir el identificador de su socket
   console.log('--> Usuario conectado!. Socket id: ' + socket.id)
   socket.emit('hello', "Bienvenido al Chat")
+
+  //-- Función de retrollamada de mensaje recibido del cliente
+   socket.on('msg', (msg) => {
+     console.log("Cliente: " + socket.id + ': ' + msg)
+     //-- Enviar el mensaje a TODOS los clientes que estén conectados
+     io.emit('msg', msg)
+   })
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
   console.log('--> Usuario Desconectado. Socket id: ' + socket.id)
