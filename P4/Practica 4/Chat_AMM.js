@@ -4,7 +4,6 @@ const express = require('express')
 
 //-- Crear una nueva aplciacion web
 const app = express()
-
 //-- Crear un servidor. Los mensajes recibidos
 //-- los gestiona la app
 const http = require('http').Server(app)
@@ -30,12 +29,6 @@ app.get('/', (req, res) => {
   console.log("Acceso a " + fich)
 })
 
-//-- Vista date
-app.get('/date', (req, res) => {
-  res.send('Fecha de hoy!')
-  console.log("Acceso a /date")
-});
-
 //-- El resto de peticiones se interpretan como
 //-- ficheros estáticos
 app.use('/', express.static(__dirname +'/'))
@@ -55,6 +48,7 @@ io.on('connection', function(socket){
      //-- Enviar el mensaje a TODOS los clientes que estén conectados
      io.emit('msg', msg)
    })
+
   //-- Usuario desconectado. Imprimir el identificador de su socket
   socket.on('disconnect', function(){
   num_clients -= 1
@@ -63,21 +57,20 @@ io.on('connection', function(socket){
 
   // -- Gestión comandos
   socket.on('cmd', (msg) => {
-    console.log("Servidor: " + socket.id + ': ' + msg);
+    console.log("Cliente: " + socket.id + ': ' + msg);
     let message = "";
 
     if (msg == "/help") {
-    message += "Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
+    message += "<br> > Servidor => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
     }else if (msg == "/list") {
-    message += "Número de usuarios conectados = " + num_clients.toString()
+    message += "<br> > Servidor => Número de usuarios conectados = " + num_clients.toString()
     }else if (msg == "/hello") {
-    message += "Hola, yo soy el servidor"
+    message += "<br> > Servidor => Hola, yo soy el servidor"
     }else if (msg == "/date") {
-    message += new Date();
+    message += "<br> > Servidor => " + new Date();
     }else {
     message += "Comando incorrecto, /help para más información"
     }
-
     socket.emit('msg', message)
   })
 
