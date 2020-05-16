@@ -49,21 +49,10 @@ function peticion(req, res) {
       res.writeHead(404, {'Content-Type': 'text/html'})
       return res.end("404 Not Found")
     } else {
-      //-- Leer las cookies
-      const cookie = req.headers.cookie
 
       content = "Bienvenido a mi tienda "
-
-          //-- No hay ninguna cookie
-          if (!cookie) {
-            //content += "\nNo te conozcocemos... Registrate!\n"
-            //content += "Accede a /login"
-            res.setHeader('Set-Cookie','user=Martin')
-          //-- Hay definida una Cookie.
-          } else {
-            //content += "Martin"
-            console.log("Cookie: " + cookie)
-          }
+      res.setHeader('Set-Cookie','user=Martin')
+      res.write(content)
       res.writeHead(200, {'Content-Type': mime})
       res.write(data)
       return res.end()
