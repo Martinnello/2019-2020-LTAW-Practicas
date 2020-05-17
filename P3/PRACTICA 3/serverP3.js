@@ -6,6 +6,8 @@ const http = require('http')
 const fs = require('fs')
 const url = require('url')
 
+let productos = ["Death Stranding", "Bloodborne", "Dark Souls"];
+
 console.log("Arrancando servidor...")
 
 //-- Funcion para atender a una Peticion
@@ -13,70 +15,63 @@ console.log("Arrancando servidor...")
 //-- res: Mensaje de respuesta
 function peticion(req, res) {
 
-  let fileName = ""
+  var q = url.parse(req.url, true);
+  console.log("pathname:" + q.pathname)
 
-  if (req.url == "/" ){
-    fileName = "/index.html"
-  }  else {
-    fileName = req.url
-  }
+  if (q.pathname != "/myquery") {
+    let fileName = ""
 
-  //-- Peticion recibida
-  console.log("Peticion recibida!")
-  console.log("Recurso (URL): " + req.url)
+    if (q.pathname == "/" ){
+      fileName = "/index.html"
+    }  else {
+      fileName = q.pathname
+    }
 
-  //-- Leer las cookies
-  const cookie = req.headers.cookie
-  console.log("Cookie: " + cookie)
-  content = "Bienvenido a mi tienda "
+    let ext = fileName.split(".")[-1]
+    let mime = ""
 
-      //-- No hay ninguna cookie
-      if (!cookie) {
-        content += "\nNo te conozcocemos... Registrate!\n"
-        content += "Accede a /login"
+    if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
+      mime = "image/" + ext
+    }
 
-      //-- Hay definida una Cookie.
-      } else {
-        content += "Martin"
-      }
+    if (ext == "css" || ext == "html" || ext == "txt"){
+      mime = "text/" + ext
+    }
 
-  let ext = fileName.split(".")[-1]
-  let mime = ""
+    if (ext == "ttf"){
+      mime = "font/" + ext
+    }
 
-  if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
-    mime = "image/" + ext
-  }
+    //-- Peticion recibida
+    console.log("Peticion recibida!")
+    console.log("Peticion: " + q.pathname)
 
-  if (ext == "css" || ext == "html" || ext == "txt"){
-    mime = "text/" + ext
-  }
+    //-- Crear mensaje de respuesta o error
 
-  if (ext == "ttf"){
-    mime = "font/" + ext
-  }
+    console.log()
+    fs.readFile("." + fileName, (err, data) => {
 
-  //-- Crear mensaje de respuesta o error
-
-  console.log()
-  fs.readFile("." + fileName, (err, data) => {
-
-    if (err) {
+      if (err) {
       res.writeHead(404, {'Content-Type': 'text/html'})
       return res.end("404 Not Found")
-    } else if (ext == "/" ) {
-      res.setHeader('Content-Type', 'text/plain')
-      res.write(content);
-      res.end();
-    } else if (ext == "/login" ) {
-      content = "Registrado! Cookie enviada al navegador!"
-      //-- ESTABLECER LA COOKIE!!
-      res.setHeader('Set-Cookie', 'user=Martin')
     } else {
       res.writeHead(200, {'Content-Type': mime})
       res.write(data)
       return res.end()
-    }
-  })
+      }
+    })
+  } else {
+    //-- El array de productos lo pasamos a una cadena de texto,
+    //-- en formato JSON:
+    content = JSON.stringify(productos) + '\n';
+
+    //-- Generar el mensaje de respuesta
+    //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
+    //-- en la cabecera Content-Type
+    res.setHeader('Content-Type', 'application/json')
+    res.write(content);
+    return res.end();
+  }
 }
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición
