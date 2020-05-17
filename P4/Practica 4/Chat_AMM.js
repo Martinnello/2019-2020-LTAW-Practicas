@@ -58,7 +58,7 @@ io.on('connection', function(socket){
 
        switch (msg) {
          case "/help":
-           message += "> /help => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
+           message += "> /help => Comandos disponibles: <br><br> - /help: Ayuda. <br> - /list: Número de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual. <br>"
            break;
          case "/list":
            message += "> /list => Número de usuarios conectados = " + num_clients.toString()
@@ -67,7 +67,7 @@ io.on('connection', function(socket){
            message += "> /hello => Hola, yo soy el servidor"
            break;
          case "/date":
-           message += "> /date =>" + new Date();
+           message += "> /date => " + new Date();
            break;
          default:
            message += "Comando incorrecto!!! Introduce /help para más información"
