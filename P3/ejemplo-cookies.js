@@ -44,7 +44,7 @@ function peticion(req, res) {
       content = "Registrado! Cookie enviada al navegador!"
 
       //-- ESTABLECER LA COOKIE!!
-      res.setHeader('Set-Cookie', 'user=obijuan')
+      res.setHeader('Set-Cookie', 'user=Martin')
       break
 
     //-- Se intenta acceder a un recurso que no existe
