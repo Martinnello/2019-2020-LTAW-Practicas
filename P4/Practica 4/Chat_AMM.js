@@ -28,11 +28,11 @@ app.get('/', (req, res) => {
 
 app.use('/', express.static(__dirname +'/'))
 
-//-- Un nuevo cliente se ha conectado!
+// Establecer conexión
 io.on('connection', function(socket){
 
    socket.on('new', (nick) => {
-     //-- Enviar el mensaje a TODOS los clientes que estén conectados
+     //-- Nuevo usuario -- Un nuevo cliente se ha conectado!
      num_clients += 1
      console.log(nick + " se ha conectado! | Usuario nº: " + num_clients.toString())
      io.emit('new', nick + " se ha conectado! | Usuario nº: " + num_clients.toString())
@@ -44,36 +44,35 @@ io.on('connection', function(socket){
        io.emit('msg', nick + ": " + msg)
      })
 
-     //-- Usuario desconectado. Imprimir el identificador de su socket
+     //-- Usuario desconectado.
      socket.on('disconnect', function(){
-     num_clients -= 1
-     console.log(nick + " se ha desconectado!")
-     io.emit('new', nick + " se ha desconectado!")
+       num_clients -= 1
+       console.log(nick + " se ha desconectado!")
+       io.emit('new', nick + " se ha desconectado!")
      })
 
+      // -- Gestión comandos
+     socket.on('cmd', (msg) => {
+       console.log(nick + ': ' + msg)
+       let message = "";
 
-    // -- Gestión comandos
-    socket.on('cmd', (msg) => {
-      console.log(nick + ': ' + msg)
-      let message = "";
-
-      switch (msg) {
-        case "/help":
-          message += "> /help => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
-          break;
-        case "/list":
-          message += "> /list => Número de usuarios conectados = " + num_clients.toString()
-          break;
-        case "/hello":
-          message += "> /hello => Hola, yo soy el servidor"
-          break;
-        case "/date":
-          message += "> /date =>" + new Date();
-          break;
-        default:
-          message += "Comando incorrecto!!! Introduce /help para más información"
-      }
-        socket.emit('msg', message)
+       switch (msg) {
+         case "/help":
+           message += "> /help => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
+           break;
+         case "/list":
+           message += "> /list => Número de usuarios conectados = " + num_clients.toString()
+           break;
+         case "/hello":
+           message += "> /hello => Hola, yo soy el servidor"
+           break;
+         case "/date":
+           message += "> /date =>" + new Date();
+           break;
+         default:
+           message += "Comando incorrecto!!! Introduce /help para más información"
+       }
+       socket.emit('msg', message)
     })
   })
 })

@@ -20,7 +20,7 @@ socket.on('new', (msg) => {
   display.innerHTML += "<br> > " + msg
 });
 
-//-- Se ha recibido un mensaje
+//-- Se ha recibido un mensaje de chat
 socket.on('msg', (msg) => {
   display.innerHTML += "<br> > " + msg
 });
