@@ -1,11 +1,10 @@
-//-- Cargar las dependencias
-//-- Modulo express
+//-- Cargar las dependencias, Modulo express
 const express = require('express')
 
 //-- Crear una nueva aplciacion web
 const app = express()
-//-- Crear un servidor. Los mensajes recibidos
-//-- los gestiona la app
+
+//-- Crear un servidor. Los mensajes recibidos los gestiona la app
 const http = require('http').Server(app)
 
 //-- Biblioteca socket.io en el lado del servidor
@@ -13,7 +12,6 @@ const io = require('socket.io')(http)
 
 //-- Puerto donde lanzar el servidor
 const PORT = 8080
-
 var num_clients = 0
 
 //-- Lanzar servidor
@@ -21,57 +19,61 @@ http.listen(PORT, function(){
   console.log('Servidor lanzado en puerto ' + PORT)
 });
 
-//-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
-//-- Página principal
+//-------- PUNTO DE ENTRADA DE LA APLICACION WEB
 app.get('/', (req, res) => {
   let fich = __dirname + '/Chat.html'
   res.sendFile(fich)
   console.log("Acceso a " + fich)
 })
 
-//-- El resto de peticiones se interpretan como
-//-- ficheros estáticos
 app.use('/', express.static(__dirname +'/'))
 
-//-- Evento: Nueva conexion recibida
 //-- Un nuevo cliente se ha conectado!
 io.on('connection', function(socket){
 
-  //-- Usuario conectado. Imprimir el identificador de su socket
-  num_clients += 1
-  console.log('--> Usuario conectado!. Socket id: ' + socket.id + "Usuario nº: " + num_clients.toString())
-  socket.emit('hello', "Servidor: Bienvenido al Chat, eres el usuario: " + num_clients.toString())
-
-  //-- Función de retrollamada de mensaje recibido del cliente
-   socket.on('msg', (msg) => {
-     console.log("Cliente: " + socket.id + ': ' + msg)
+   socket.on('new', (nick) => {
      //-- Enviar el mensaje a TODOS los clientes que estén conectados
-     io.emit('msg', msg)
-   })
+     num_clients += 1
+     console.log(nick + " se ha conectado! | Usuario nº: " + num_clients.toString())
+     io.emit('new', nick + " se ha conectado! | Usuario nº: " + num_clients.toString())
 
-  //-- Usuario desconectado. Imprimir el identificador de su socket
-  socket.on('disconnect', function(){
-  num_clients -= 1
-  console.log('--> Usuario Desconectado. Socket id: ' + socket.id)
+     //-- Función de retrollamada de mensaje recibido del cliente
+     socket.on('msg', (msg) => {
+       console.log( nick + ": " + msg)
+       //-- Enviar el mensaje a TODOS los clientes que estén conectados
+       io.emit('msg', nick + ": " + msg)
+     })
+
+     //-- Usuario desconectado. Imprimir el identificador de su socket
+     socket.on('disconnect', function(){
+     num_clients -= 1
+     console.log(nick + " se ha desconectado!")
+     io.emit('new', nick + " se ha desconectado!")
+     })
+
+
+    // -- Gestión comandos
+    socket.on('cmd', (msg) => {
+      console.log(nick + ': ' + msg)
+      let message = "";
+
+      switch (msg) {
+        case "/help":
+          message += "<br> > /help => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
+          break;
+        case "/list":
+          message += "<br> > /list => Número de usuarios conectados = " + num_clients.toString()
+          break;
+        case "/hello":
+          message += "<br> > /hello => Hola, yo soy el servidor"
+          break;
+        case "/date":
+          message += "<br> > /date =>" + new Date();
+          break;
+        default:
+          message += "Comando incorrecto!!! Introduce /help para más información"
+      }
+        socket.emit('msg', message)
+    })
   })
-
-  // -- Gestión comandos
-  socket.on('cmd', (msg) => {
-    console.log("Cliente: " + socket.id + ': ' + msg);
-    let message = "";
-
-    if (msg == "/help") {
-    message += "<br> > Servidor => Comandos: <br><br> - /help: Ayuda. <br> - /list: Lista de usuarios conectados. <br> - /hello: Devuelve un saludo. <br> - /date: Fecha Actual."
-    }else if (msg == "/list") {
-    message += "<br> > Servidor => Número de usuarios conectados = " + num_clients.toString()
-    }else if (msg == "/hello") {
-    message += "<br> > Servidor => Hola, yo soy el servidor"
-    }else if (msg == "/date") {
-    message += "<br> > Servidor => " + new Date();
-    }else {
-    message += "Comando incorrecto, /help para más información"
-    }
-    socket.emit('msg', message)
-  })
-
 })

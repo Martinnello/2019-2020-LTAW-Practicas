@@ -11,20 +11,18 @@ const send = document.getElementById("send")
 //-- Crear un websocket. Se establece la conexión con el servidor
 const socket = io()
 
-//-- Se ha recibido el evento 'new':
 socket.emit('new', nick);
 
 console.log(nick + " se ha conectado");
 
-//-- Se ha recibido el evento 'hello':
-socket.on('hello', (msg) => {
-  console.log("Mensaje del servidor => " + msg)
-  display.innerHTML = msg
-})
+//-- Se ha recibido un mensaje "new"
+socket.on('new', (msg) => {
+  display.innerHTML += "<br> > " + msg
+});
 
 //-- Se ha recibido un mensaje
 socket.on('msg', (msg) => {
-  display.innerHTML += "<br> > " +  nick + ": " + msg
+  display.innerHTML += "<br> > " + msg
 });
 
 //-- Botón de envío

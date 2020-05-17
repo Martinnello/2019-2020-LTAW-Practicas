@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "Anime";
+  src: url("anime-ace-20-bb.ttf");
+}
+
+
+@font-face {
+  font-family: "Naruto";
+  src: url("ninja-naruto.ttf");
+}
+
+h1 {
+  font-family: "Anime";
+  font-size: 150%;
+  text-align:center;
+}
+
+h2 {
+  font-family: "Naruto";
+  font-size: 80%;
+  text-align:center;
+}
+
+body {
+  background-color:  #dbcfff;
+  text-align:center;
+}
