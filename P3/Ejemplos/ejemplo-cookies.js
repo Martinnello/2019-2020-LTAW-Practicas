@@ -33,7 +33,7 @@ function peticion(req, res) {
 
       //-- Hay definida una Cookie.
       } else {
-        content += "Obijuan"
+        content += "Martin"
       }
 
       res.statusCode = 200;
