@@ -6,7 +6,8 @@ const http = require('http')
 const fs = require('fs')
 const url = require('url')
 
-let productos = ["Death Stranding", "Bloodborne", "Dark Souls"];
+let productos = ["Death Stranding", "Bloodborne", "Dark Souls"]
+let content = ""
 
 console.log("Arrancando servidor...")
 
@@ -21,9 +22,60 @@ function peticion(req, res) {
   if (q.pathname != "/myquery") {
     let fileName = ""
 
-    if (q.pathname == "/" ){
+    if (q.pathname == "/" ) {
+
       fileName = "/index.html"
-    }  else {
+
+    } else if (q.pathname == "/myform") {
+
+          if (req.method === 'POST') {
+          // Handle post info...
+
+          switch (content) {
+            case "Death Stranding":
+              content = "death_stranding.html";
+            break;
+
+            case "Bloodborne":
+              content = "bloodborne.html";
+            break;
+
+            case "Dark Souls":
+              content = "darksouls.html";
+            break;
+
+            default:
+              content = "";
+          }
+
+          req.on('data', chunk => {
+              //-- Leer los datos (convertir el buffer a cadena)
+              data = chunk.toString();
+
+              //-- Añadir los datos a la respuesta
+              content += data;
+
+              //-- Fin del mensaje. Enlace al formulario
+              content += `
+                  </p>
+                  <a href="/">[Formulario]</a>
+                </body>
+              </html>
+              `
+              //-- Mostrar los datos en la consola del servidor
+              console.log("Datos recibidos: " + data)
+              res.statusCode = 200;
+           });
+
+           req.on('end', ()=> {
+             //-- Generar el mensaje de respuesta
+             res.setHeader('Content-Type', 'text/html')
+             res.write(content);
+             res.end();
+           })
+           return
+        }
+    } else {
       fileName = q.pathname
     }
 
@@ -42,12 +94,15 @@ function peticion(req, res) {
       mime = "font/" + ext
     }
 
+    if (ext == "js"){
+      mime = "application/javascript" + ext
+    }
+
     //-- Peticion recibida
     console.log("Peticion recibida!")
     console.log("Peticion: " + q.pathname)
 
     //-- Crear mensaje de respuesta o error
-
     console.log()
     fs.readFile("." + fileName, (err, data) => {
 
@@ -63,7 +118,24 @@ function peticion(req, res) {
   } else {
     //-- El array de productos lo pasamos a una cadena de texto,
     //-- en formato JSON:
-    content = JSON.stringify(productos) + '\n';
+    content = JSON.stringify(productos) + '\n'
+
+    //-- Leer los parámetros recibidos en la peticion
+    const params = q.query
+
+    //-- No hacemos nada con ellos, simplemente los mostramos en
+    //-- la consola
+    console.log("Parametros: " +params.param1 + ' y ' + params.param2)
+
+  //  let prod_similar = [];
+  //  if (params.producto.length > 0) {
+  //    for (var i = 0; i < productos.length; i++) {
+  //      if (productos[i].toLowerCase().indexOf(params.producto.toLowerCase()) != -1) {
+  //          prod_similar.push(productos[i]);
+  //          resultado = productos[i];
+  //  }
+  //}
+//}
 
     //-- Generar el mensaje de respuesta
     //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON

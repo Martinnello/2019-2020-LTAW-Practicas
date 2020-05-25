@@ -5,17 +5,27 @@
     <title>PS4 GAMES</title>
     <link rel="stylesheet" type="text/css" href="/static/css/micss.css">
     <link rel="icon" href="/static/css/luffy.ico" type="image/x-icon">
+    <script src="clientP3.js" defer></script>
   </head>
   <body>
 
     <div class="portada">
     <br>
-    <h1 style = "color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
+    <h1 style="color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
     <br>
   </div>
-
+    <br>
     <a href= "/carrito.html"><img src="/static/Img/carrito.png" width="40" height="40" align="right" z-index="-1" position="fixed"></a>
+    <br>
     <div class="products">
+      <br><br>
+      <input style="float:right"; type="button" id="ver" value="Ver productos"/>
+      <form action="/myform" method="post">
+          Nombre:
+          <input type="text" name="Nombre"/> <br />
+          <input type="submit" value="Enviar"/>
+      </form>
+      <p id="resultado"></p>
       <h2>  Productos: </h2>
 
       <div style = "text-align:center">
