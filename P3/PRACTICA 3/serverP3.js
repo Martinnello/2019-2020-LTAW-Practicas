@@ -30,12 +30,13 @@ function peticion(req, res) {
           if (req.method === 'POST') {
 
           req.on('data', chunk => {
+            
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString()
 
               //-- Añadir los datos a la respuesta
               content = data.split("=")[1].toLowerCase()
-              console.log(data)
+
               //-- Mostrar los datos en la consola del servidor
               console.log("Datos recibidos: " + content)
 
@@ -62,12 +63,12 @@ function peticion(req, res) {
              fs.readFile(content, (err, data) => {
 
                if (err) {
-               res.writeHead(404, {'Content-Type': 'text/html'})
-               return res.end("404 Not Found")
-             } else {
-               res.writeHead(200, {'Content-Type': 'text/html'})
-               res.write(data)
-               return res.end()
+                 res.writeHead(404, {'Content-Type': 'text/html'})
+                 return res.end("404 Not Found")
+               } else {
+                 res.writeHead(200, {'Content-Type': 'text/html'})
+                 res.write(data)
+                 return res.end()
                }
              })
            })
@@ -97,20 +98,19 @@ function peticion(req, res) {
     }
 
     //-- Peticion recibida
-    console.log("Peticion recibida!")
-    console.log("Peticion: " + q.pathname)
+    console.log("Peticion recibida: " + q.pathname)
 
     //-- Crear mensaje de respuesta o error
     console.log()
     fs.readFile("." + fileName, (err, data) => {
 
       if (err) {
-      res.writeHead(404, {'Content-Type': 'text/html'})
-      return res.end("404 Not Found")
-    } else {
-      res.writeHead(200, {'Content-Type': mime})
-      res.write(data)
-      return res.end()
+        res.writeHead(404, {'Content-Type': 'text/html'})
+        return res.end("404 Not Found")
+      } else {
+        res.writeHead(200, {'Content-Type': mime})
+        res.write(data)
+        return res.end()
       }
     })
   } else if (q.pathname == "/myquery") {
@@ -129,21 +129,16 @@ function peticion(req, res) {
         }
       }
     }
-    //-- El array de productos lo pasamos a una cadena de texto, en formato JSON:
+    //-- El array de productos lo pasamos a una cadena de texto, en formato JSON
     busqueda = JSON.stringify(busqueda) + '\n'
     res.setHeader('Content-Type', 'application/json')
-    res.write(busqueda);
-    return res.end();
+    res.write(busqueda)
+    return res.end()
   }
 }
 
 //-- Inicializar el servidor
-//-- Cada vez que recibe una petición
-//-- invoca a la funcion peticion para atenderla
 const server = http.createServer(peticion)
-
-//-- Configurar el servidor para escuchar en el
-//-- puerto establecido
 server.listen(PUERTO);
 
 console.log("Servidor LISTO!")
