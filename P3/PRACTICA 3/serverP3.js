@@ -28,34 +28,34 @@ function peticion(req, res) {
     } else if (q.pathname == "/myform") {
 
           if (req.method === 'POST') {
-          // Handle post info...
-
-          switch (content) {
-            case "Death Stranding":
-              content = "death_stranding.html";
-            break;
-
-            case "Bloodborne":
-              content = "bloodborne.html";
-            break;
-
-            case "Dark Souls":
-              content = "darksouls.html";
-            break;
-
-            default:
-              content = "";
-          }
 
           req.on('data', chunk => {
               //-- Leer los datos (convertir el buffer a cadena)
-              data = chunk.toString();
+              data = chunk.toString()
 
               //-- Añadir los datos a la respuesta
-              content = data.split("=")[1];
+              content = data.split("=")[1].toLowerCase()
+              console.log(data)
               //-- Mostrar los datos en la consola del servidor
               console.log("Datos recibidos: " + content)
-           });
+
+              switch (content) {
+                case "death+stranding":
+                  content = "death_stranding.html"
+                break;
+
+                case "bloodborne":
+                  content = "bloodborne.html"
+                break;
+
+                case "dark+souls":
+                  content = "darksouls.html"
+                break;
+
+                default:
+                  content = ""
+              }
+           })
 
            req.on('end', ()=> {
 
@@ -114,36 +114,29 @@ function peticion(req, res) {
       }
     })
   } else if (q.pathname == "/myquery") {
-    let fileName = ""
-    //-- El array de productos lo pasamos a una cadena de texto,
-    //-- en formato JSON:
-    content = JSON.stringify(productos) + '\n'
 
     //-- Leer los parámetros recibidos en la peticion
     const params = q.query
 
-    //-- No hacemos nada con ellos, simplemente los mostramos en
-    //-- la consola
-    console.log("Parametros: " +params.param1 + ' y ' + params.param2)
+    console.log("Parametros: " + params.param1 + ' y ' + params.param2)
 
-  //  let prod_similar = [];
-  //  if (params.producto.length > 0) {
-  //    for (var i = 0; i < productos.length; i++) {
-  //      if (productos[i].toLowerCase().indexOf(params.producto.toLowerCase()) != -1) {
-  //          prod_similar.push(productos[i]);
-  //          resultado = productos[i];
-  //  }
-  //}
-//}
+    let busqueda = ""
 
-    //-- Generar el mensaje de respuesta
-    //-- IMPORTANTE! Hay que indicar que se trata de un objeto JSON
-    //-- en la cabecera Content-Type
+    if (params.param1.length > 2) {
+      for (var i = 0; i < productos.length; i++) {
+        if (productos[i].toLowerCase().indexOf(params.param1) != -1) {
+            busqueda += productos[i];
+        }
+      }
+    }
+    //-- El array de productos lo pasamos a una cadena de texto, en formato JSON:
+    busqueda = JSON.stringify(busqueda) + '\n'
     res.setHeader('Content-Type', 'application/json')
-    res.write(content);
+    res.write(busqueda);
     return res.end();
   }
 }
+
 //-- Inicializar el servidor
 //-- Cada vez que recibe una petición
 //-- invoca a la funcion peticion para atenderla

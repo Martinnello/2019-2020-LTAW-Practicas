@@ -1,6 +1,3 @@
-//-- Traza de prueba
-console.log("Hola!")
-
 //-- Obtener el botón de VER del DOM
 const ver = document.getElementById('ver')
 
@@ -8,13 +5,13 @@ const ver = document.getElementById('ver')
 const resultado = document.getElementById('resultado');
 
 //-- Cuando el usuario aprieta el botón de ver los productos
-ver.onclick = ()=>{
+ver.onkeyup = ()=>{
 
   //-- Crear objeto para hacer peticiones AJAX
   const m = new XMLHttpRequest();
 
   //-- Configurar la petición
-  m.open("GET","http://localhost:8080/myquery?param1=hola&param2=wei", true);
+  m.open("GET","http://localhost:8080/myquery?param1="+ver.value+"&param2=wei", true);
 
   //-- Cuando la haya alguna noticia sobre la peticion
   //-- ejecuta este código
@@ -35,10 +32,6 @@ ver.onclick = ()=>{
          //-- Añadir cada producto al párrafo de visualización
          resultado.innerHTML += productos[i];
 
-         //-- Separamos los productos por ',''
-         if (i < productos.length-1) {
-           resultado.innerHTML += ', ';
-         }
        }
      }
    }
