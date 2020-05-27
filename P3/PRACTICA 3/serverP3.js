@@ -20,7 +20,6 @@ function peticion(req, res) {
   console.log("pathname:" + q.pathname)
 
   if (q.pathname != "/myquery") {
-    let fileName = ""
 
     if (q.pathname == "/" ) {
 
@@ -115,7 +114,8 @@ function peticion(req, res) {
       return res.end()
       }
     })
-  } else {
+  } else if (q.pathname == "/myquery") {
+    let fileName = ""
     //-- El array de productos lo pasamos a una cadena de texto,
     //-- en formato JSON:
     content = JSON.stringify(productos) + '\n'
