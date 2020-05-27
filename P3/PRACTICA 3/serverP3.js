@@ -52,25 +52,24 @@ function peticion(req, res) {
               data = chunk.toString();
 
               //-- Añadir los datos a la respuesta
-              content += data;
-
-              //-- Fin del mensaje. Enlace al formulario
-              content += `
-                  </p>
-                  <a href="/">[Formulario]</a>
-                </body>
-              </html>
-              `
+              content = data.split("=")[1];
               //-- Mostrar los datos en la consola del servidor
-              console.log("Datos recibidos: " + data)
-              res.statusCode = 200;
+              console.log("Datos recibidos: " + content)
            });
 
            req.on('end', ()=> {
-             //-- Generar el mensaje de respuesta
-             res.setHeader('Content-Type', 'text/html')
-             res.write(content);
-             res.end();
+
+             fs.readFile(content, (err, data) => {
+
+               if (err) {
+               res.writeHead(404, {'Content-Type': 'text/html'})
+               return res.end("404 Not Found")
+             } else {
+               res.writeHead(200, {'Content-Type': 'text/html'})
+               res.write(data)
+               return res.end()
+               }
+             })
            })
            return
         }
