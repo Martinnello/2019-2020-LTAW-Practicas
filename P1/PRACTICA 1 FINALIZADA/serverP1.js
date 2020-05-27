@@ -46,22 +46,17 @@ function peticion(req, res) {
   fs.readFile("." + fileName, (err, data) => {
 
     if (err) {
-    res.writeHead(404, {'Content-Type': 'text/html'})
-    return res.end("404 Not Found")
-  } else {
-    res.writeHead(200, {'Content-Type': mime})
-    res.write(data)
-    return res.end()
+      res.writeHead(404, {'Content-Type': 'text/html'})
+      return res.end("404 Not Found")
+    } else {
+      res.writeHead(200, {'Content-Type': mime})
+      res.write(data)
+      return res.end()
     }
   })
 }
 //-- Inicializar el servidor
-//-- Cada vez que recibe una petición
-//-- invoca a la funcion peticion para atenderla
 const server = http.createServer(peticion)
-
-//-- Configurar el servidor para escuchar en el
-//-- puerto establecido
 server.listen(PUERTO);
 
 console.log("Servidor LISTO!")
