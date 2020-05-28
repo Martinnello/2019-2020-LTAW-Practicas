@@ -16,7 +16,6 @@ console.log("Arrancando servidor...")
 function peticion(req, res) {
 
   var q = url.parse(req.url, true);
-  console.log("pathname:" + q.pathname)
 
   if (q.pathname != "/myquery") {
 
@@ -141,4 +140,4 @@ const server = http.createServer(peticion)
 server.listen(PUERTO);
 
 console.log("Servidor LISTO!")
-console.log("Escuchando en puerto: " + PUERTO)
+console.log("Escuchando en puerto: " + PUERTO + "\n")
