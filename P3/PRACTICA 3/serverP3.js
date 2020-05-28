@@ -7,7 +7,6 @@ const fs = require('fs')
 const url = require('url')
 
 let productos = ["Death Stranding", "Bloodborne", "Dark Souls"]
-let content = ""
 
 console.log("Arrancando servidor...")
 
@@ -30,7 +29,7 @@ function peticion(req, res) {
           if (req.method === 'POST') {
 
           req.on('data', chunk => {
-            
+
               //-- Leer los datos (convertir el buffer a cadena)
               data = chunk.toString()
 
@@ -118,7 +117,7 @@ function peticion(req, res) {
     //-- Leer los parámetros recibidos en la peticion
     const params = q.query
 
-    console.log("Parametros: " + params.param1 + ' y ' + params.param2)
+    console.log("Parametros: " + params.param1)
 
     let busqueda = ""
 
@@ -130,7 +129,7 @@ function peticion(req, res) {
       }
     }
     //-- El array de productos lo pasamos a una cadena de texto, en formato JSON
-    busqueda = JSON.stringify(busqueda) + '\n'
+    busqueda = JSON.stringify(busqueda)
     res.setHeader('Content-Type', 'application/json')
     res.write(busqueda)
     return res.end()

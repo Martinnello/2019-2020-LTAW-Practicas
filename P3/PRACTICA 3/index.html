@@ -15,15 +15,19 @@
     <br>
   </div>
     <br>
-    <a href= "/carrito.html"><img src="/static/Img/carrito.png" width="40" height="40" align="right" z-index="-1" position="fixed"></a>
+    <a href= "/carrito.html">
+      <img src="/static/Img/carrito.png" width="40" height="40" align="right" z-index="-1" position="fixed">
+    </a>
     <br>
     <div class="products">
       <br><br>
       <form action="/myform" method="post">
           Busca tus juegos:
-          <input id="ver" type="text" name="busqueda"/>
+          <input id="ver" type="text" name="busqueda" list="productos"/>
+          <datalist id="productos">
+            <option id="resultado"></option>
+          </datalist>
           <input type="submit" value="Buscar"/>
-          <p id="resultado"></p>
       </form>
 
       <h2>  Productos: </h2>
