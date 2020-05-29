@@ -15,7 +15,8 @@ console.log("Arrancando servidor...")
 //-- res: Mensaje de respuesta
 function peticion(req, res) {
 
-  var q = url.parse(req.url, true);
+  var q = url.parse(req.url, true)
+  let cookie = req.headers.cookie
 
   if (q.pathname != "/myquery") {
 
@@ -72,46 +73,96 @@ function peticion(req, res) {
            })
            return
         }
-    } else {
-      fileName = q.pathname
-    }
 
-    let ext = fileName.split(".")[-1]
-    let mime = ""
+      } else if (q.pathname == "/register") {
 
-    if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
-      mime = "image/" + ext
-    }
+        if (req.method == 'POST') {
 
-    if (ext == "css" || ext == "html" || ext == "txt"){
-      mime = "text/" + ext
-    }
+          req.on('data', chunk => {
 
-    if (ext == "ttf"){
-      mime = "font/" + ext
-    }
+            // Recogemos los datos
+            data = chunk.toString()
 
-    if (ext == "js"){
-      mime = "application/javascript" + ext
-    }
+            let id = data.split("&")[0].split("=")[1]
+            let pass = data.split("&")[1].split("=")[1]
+            let login = false
 
-    //-- Peticion recibida
-    console.log("Peticion recibida: " + q.pathname)
+            console.log("Email: " + id)
+            console.log("Password: " + pass)
 
-    //-- Crear mensaje de respuesta o error
-    console.log()
-    fs.readFile("." + fileName, (err, data) => {
+            // Vemos si esta registrado
+            if (cookie){
+              for (let valor in cookie.split("; ")) {
+                console.log("Cookie: " + cookie.split("; ")[valor])
+                if (cookie.split("; ")[valor].split("=")[0] == id) {
+                  login = true
+                }
+              }
+            }
+            // Guardando cookie
+            if (!login) {
+              res.setHeader('Set-cookie', id + "=" + pass)
+            }
 
-      if (err) {
-        res.writeHead(404, {'Content-Type': 'text/html'})
-        return res.end("404 Not Found")
+            req.on('end', ()=> {
+
+              fs.readFile("./index.html", (err, data) => {
+
+                if (err) {
+                  res.writeHead(404, {'Content-Type': 'text/html'})
+                  return res.end("404 Not Found")
+                } else {
+                  res.writeHead(200, {'Content-Type': 'text/html'})
+                  res.write(data)
+                  return res.end()
+                }
+              })
+            })
+            return
+          })
+        }
       } else {
-        res.writeHead(200, {'Content-Type': mime})
-        res.write(data)
-        return res.end()
+
+      fileName = q.pathname
+
+      let ext = fileName.split(".")[-1]
+      let mime = ""
+
+      if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
+        mime = "image/" + ext
       }
-    })
-  } else if (q.pathname == "/myquery") {
+
+      if (ext == "css" || ext == "html" || ext == "txt"){
+        mime = "text/" + ext
+      }
+
+      if (ext == "ttf"){
+        mime = "font/" + ext
+      }
+
+      if (ext == "js"){
+        mime = "application/javascript"
+      }
+
+      //-- Peticion recibida
+      console.log("Peticion recibida: " + q.pathname)
+
+      //-- Crear mensaje de respuesta o error
+      console.log()
+        fs.readFile("." + fileName, (err, data) => {
+
+          if (err) {
+            res.writeHead(404, {'Content-Type': 'text/html'})
+            return res.end("404 Not Found")
+          } else {
+            res.writeHead(200, {'Content-Type': mime})
+            res.write(data)
+            return res.end()
+          }
+        })
+      }
+
+    } else if (q.pathname == "/myquery") {
 
     //-- Leer los parámetros recibidos en la peticion
     const params = q.query

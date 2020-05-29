@@ -22,7 +22,7 @@ body {
   background-color:  #dbcfff;
 }
 
-#buscador{
+#buscador, #registrador {
   float:right;
 }
 
