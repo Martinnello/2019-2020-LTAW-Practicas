@@ -22,12 +22,15 @@ body {
   background-color:  #dbcfff;
 }
 
+#buscador{
+  float:right;
+}
+
 .img_esquina {
   width: 40px;
   height: 40px;
   position: absolute;
   top: 0px;
-  background-image: url("carrito.png");
 }
 
 .products {

@@ -115,14 +115,15 @@ function peticion(req, res) {
 
     //-- Leer los parámetros recibidos en la peticion
     const params = q.query
+    let parametro1 = params.param1.toLowerCase()
 
-    console.log("Parametros: " + params.param1)
+    console.log("Parametros: " + parametro1)
 
     let busqueda = ""
 
     if (params.param1.length > 2) {
       for (var i = 0; i < productos.length; i++) {
-        if (productos[i].toLowerCase().indexOf(params.param1) != -1) {
+        if (productos[i].toLowerCase().indexOf(parametro1) != -1) {
             busqueda += productos[i];
         }
       }
