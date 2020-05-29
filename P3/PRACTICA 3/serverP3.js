@@ -40,15 +40,15 @@ function peticion(req, res) {
 
               switch (content) {
                 case "death+stranding":
-                  content = "death_stranding.html"
+                  content = "productos/death_stranding.html"
                 break;
 
                 case "bloodborne":
-                  content = "bloodborne.html"
+                  content = "productos/bloodborne.html"
                 break;
 
                 case "dark+souls":
-                  content = "darksouls.html"
+                  content = "productos/darksouls.html"
                 break;
 
                 default:
