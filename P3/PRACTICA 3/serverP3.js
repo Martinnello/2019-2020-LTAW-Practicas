@@ -137,9 +137,18 @@ function peticion(req, res) {
 
         if (req.method == 'POST') {
 
+
           req.on('data', chunk => {
 
+            data = chunk.toString()
+
             console.log(data)
+            for (let valor in cookie.split("& ")) {
+              email = data.split("&")[valor].split("=")[1]
+              pass = data.split("&")[valor].split("=")[1]
+            }
+            console.log(email)
+            console.log(pass)
 
             req.on('end', ()=> {
 
