@@ -312,7 +312,7 @@ input option, select option {
   position: absolute;
   right: 0;
 }
-#area .master-card .card .name {
+#area .master-card .card {
   color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   padding: 10px 0;

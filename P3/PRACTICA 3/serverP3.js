@@ -133,6 +133,68 @@ function peticion(req, res) {
           return
           })
         }
+    } else if (q.pathname == "/pedido") {
+
+        if (req.method == 'POST') {
+
+          req.on('data', chunk => {
+
+            console.log(data)
+
+            req.on('end', ()=> {
+
+              fs.readFile("./index_registrado.html", (err, data) => {
+
+                if (err) {
+                  res.writeHead(404, {'Content-Type': 'text/html'})
+                  return res.end("404 Not Found")
+                } else {
+                  res.writeHead(200, {'Content-Type': 'text/html'})
+                  res.write(data)
+                  return res.end()
+                }
+              })
+            })
+            return
+            })
+          }
+    } else if (q.pathname == "/compra") {
+
+          req.on('data', chunk => {
+
+            // Recogemos los datos
+            data = chunk.toString()
+
+            name_producto = data.split("=")[0]
+
+            console.log("Producto añadido al carrito: " + name_producto)
+
+            // Vemos si esta registrado
+            if (cookie){
+              for (let valor in cookie.split("; ")) {
+                id = cookie.split("; ")[valor].split("=")[0]
+                pass = cookie.split("; ")[valor].split("=")[1]
+              }
+              res.setHeader('Set-cookie', id + "=" + pass + ":" + name_producto)
+            }
+
+            req.on('end', ()=> {
+
+              fs.readFile("./index_registrado.html", (err, data) => {
+
+                if (err) {
+                  res.writeHead(404, {'Content-Type': 'text/html'})
+                  return res.end("404 Not Found")
+                } else {
+                  res.writeHead(200, {'Content-Type': 'text/html'})
+                  res.write(data)
+                  return res.end()
+                }
+              })
+            })
+            return
+            })
+
     } else {
 
     fileName = q.pathname
