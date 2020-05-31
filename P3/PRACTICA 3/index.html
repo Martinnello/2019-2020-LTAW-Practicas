@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>PS4 GAMES</title>
     <link rel="stylesheet" type="text/css" href="/static/css/micss.css">
-    <link rel="stylesheet" type="text/css" href="/formularios/login/login.css">
     <script src="/formularios/login/login.js"></script>
     <link rel="icon" href="/static/css/luffy.ico" type="image/x-icon">
     <script src="clientP3.js" defer></script>
@@ -22,11 +21,12 @@
         <div class="container">
           <div class="right">
             <div class="form">
-              <label for="email">Email</label>
+              <label for="email" id="lab_email">Email</label>
               <input type="email" id="email" name="id">
-              <label for="password">Password</label>
+              <label for="password"id="lab_pass">Password</label>
               <input type="password" id="password" name="pass">
-              <input type="submit" id="submit" value="Login">
+              <br><br>
+              <input type="submit" id="login_btn" value="Login">
             </div>
           </div>
         </div>
@@ -40,13 +40,14 @@
         <input type="submit" value="Buscar"/>
     </form>
 
-    <a href= "/carrito.html">
-      <img src="/static/Img/carrito.png" width="40" height="40" align="right" z-index="-1" position="fixed">
+    <br><br>
+
+    <a id="carrito" href= "/carrito.html">
+      <img  src="/static/Img/carrito.png" width="40px" height="40px">
     </a>
-    <br>
+
     <div class="products">
       <br><br>
-
       <h2>  Productos: </h2>
       <div>
       <a href= /productos/death_stranding.html><img src="/static/Img/death_stranding.jpg" width="200" height="300"></a>
