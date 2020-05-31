@@ -86,7 +86,7 @@ function peticion(req, res) {
         return
       }
 
-    } else if (q.pathname == "/register") {
+    } else if (q.pathname == "/login") {
 
       if (req.method == 'POST') {
 
@@ -118,7 +118,7 @@ function peticion(req, res) {
 
           req.on('end', ()=> {
 
-            fs.readFile("./index.html", (err, data) => {
+            fs.readFile("./index_registrado.html", (err, data) => {
 
               if (err) {
                 res.writeHead(404, {'Content-Type': 'text/html'})

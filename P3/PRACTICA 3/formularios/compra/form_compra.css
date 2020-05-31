@@ -76,8 +76,8 @@ input:hover:focus::-ms-placeholder{
 
 body {
   font-family: 'Lato', sans-serif;
-  background: #e2dedb;
-  color: #b3aca7;
+  background-color:  #dbcfff;
+  color: #000;
 }
 
 h1 {
