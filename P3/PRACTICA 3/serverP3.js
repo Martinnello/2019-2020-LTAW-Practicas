@@ -36,7 +36,7 @@ function peticion(req, res) {
         }
       })
 
-    } else if (q.pathname == "/myform") {
+    } else if (q.pathname == "/search") {
 
         if (req.method === 'POST') {
 

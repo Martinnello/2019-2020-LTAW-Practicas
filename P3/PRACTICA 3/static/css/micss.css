@@ -22,8 +22,14 @@ body {
   background-color:  #dbcfff;
 }
 
-#buscador, #registrador {
+#buscador {
   float:right;
+  margin-left: 3%;
+}
+
+#registrador{
+  margin-left: 3%;
+  float:left;
 }
 
 .img_esquina {
@@ -55,6 +61,5 @@ body {
 }
 
 .move {
-  margin-left: 50%;
   margin-top: 13%;
 }
