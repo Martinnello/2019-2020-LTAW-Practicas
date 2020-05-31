@@ -4,34 +4,47 @@
     <meta charset="utf-8">
     <title>PS4 GAMES</title>
     <link rel="stylesheet" type="text/css" href="/static/css/micss.css">
+    <script src="/formularios/login/login.js"></script>
     <link rel="icon" href="/static/css/luffy.ico" type="image/x-icon">
     <script src="clientP3.js" defer></script>
   </head>
   <body>
 
     <div class="portada">
+      <br>
+      <h1 style="color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
+      <br>
+    </div>
     <br>
-    <h1 style="color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
-    <br>
-  </div>
-    <br>
-    <a href= "/carrito.html">
-      <img src="/static/Img/carrito.png" width="40" height="40" align="right" z-index="-1" position="fixed">
-    </a>
-    <br>
-    <h5>¡Ya te has logueado! <h5/>
-    <div class="products">
-      <br><br>
-      <form id= "buscador" action="/myform" method="post">
-          <input id="ver" placeholder="Encuentra tus juegos" type=search name="busqueda" list="productos"/>
+
+    <div>
+      <form id= "registrador" action="/login" method="post">
+          <div class="container2">
+            <div class="right">
+              <div class="form">
+                <h4> LOGIN COMPLETO</h4>
+              </div>
+            </div>
+          </div>
+      </form>
+
+      <form id= "buscador" action="/search" method="post">
+          <input id="ver" autocomplete=off placeholder="Encuentra tus juegos" type=search name="busqueda" list="productos"/>
           <datalist id="productos">
             <option id="resultado"></option>
           </datalist>
           <input type="submit" value="Buscar"/>
       </form>
+      <br><br>
+      <a id="carrito" href= "/carrito.html">
+        <img  src="/static/Img/carrito.png" width="40px" height="40px">
+      </a>
+    </div>
 
+    <div class="products2">
+      <br><br>
       <h2>  Productos: </h2>
-      <div style = "text-align:center">
+      <div>
       <a href= /productos/death_stranding.html><img src="/static/Img/death_stranding.jpg" width="200" height="300"></a>
       <a href= /productos/bloodborne.html><img src="/static/Img/bloodborne.jpg" width="200" height="300"></a>
       <a href= /productos/darksouls.html><img src="/static/Img/dark-souls.jpg" width="200" height="300"></a>
