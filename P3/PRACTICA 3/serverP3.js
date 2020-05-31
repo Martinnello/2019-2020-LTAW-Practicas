@@ -1,5 +1,5 @@
 //-- Puerto donde recibir las peticiones
-const PUERTO = 8080;
+const PUERTO = 8080
 
 //-- Modulo http
 const http = require('http')
@@ -24,172 +24,184 @@ function peticion(req, res) {
 
       fileName = "/index.html"
 
+      fs.readFile("." + fileName, (err, data) => {
+
+        if (err) {
+          res.writeHead(404, {'Content-Type': 'text/html'})
+          return res.end("404 Not Found")
+        } else {
+          res.writeHead(200, {'Content-Type': 'text/html'})
+          res.write(data)
+          return res.end()
+        }
+      })
+
     } else if (q.pathname == "/myform") {
 
-          if (req.method === 'POST') {
+        if (req.method === 'POST') {
 
-          req.on('data', chunk => {
+        req.on('data', chunk => {
 
-              //-- Leer los datos (convertir el buffer a cadena)
-              data = chunk.toString()
+          //-- Leer los datos (convertir el buffer a cadena)
+          data = chunk.toString()
 
-              //-- Añadir los datos a la respuesta
-              content = data.split("=")[1].toLowerCase()
+          //-- Añadir los datos a la respuesta
+          content = data.split("=")[1].toLowerCase()
 
-              //-- Mostrar los datos en la consola del servidor
-              console.log("Datos recibidos: " + content)
+          //-- Mostrar los datos en la consola del servidor
+          console.log("Datos recibidos: " + content)
 
-              switch (content) {
-                case "death+stranding":
-                  content = "productos/death_stranding.html"
-                break;
+          switch (content) {
+            case "death+stranding":
+              content = "productos/death_stranding.html"
+            break;
 
-                case "bloodborne":
-                  content = "productos/bloodborne.html"
-                break;
+            case "bloodborne":
+              content = "productos/bloodborne.html"
+            break;
 
-                case "dark+souls":
-                  content = "productos/darksouls.html"
-                break;
+            case "dark+souls":
+              content = "productos/darksouls.html"
+            break;
 
-                default:
-                  content = ""
-              }
-           })
-
-           req.on('end', ()=> {
-
-             fs.readFile(content, (err, data) => {
-
-               if (err) {
-                 res.writeHead(404, {'Content-Type': 'text/html'})
-                 return res.end("404 Not Found")
-               } else {
-                 res.writeHead(200, {'Content-Type': 'text/html'})
-                 res.write(data)
-                 return res.end()
-               }
-             })
-           })
-           return
-        }
-
-      } else if (q.pathname == "/register") {
-
-        if (req.method == 'POST') {
-
-          req.on('data', chunk => {
-
-            // Recogemos los datos
-            data = chunk.toString()
-
-            let id = data.split("&")[0].split("=")[1]
-            let pass = data.split("&")[1].split("=")[1]
-            let login = false
-
-            console.log("Email: " + id)
-            console.log("Password: " + pass)
-
-            // Vemos si esta registrado
-            if (cookie){
-              for (let valor in cookie.split("; ")) {
-                console.log("Cookie: " + cookie.split("; ")[valor])
-                if (cookie.split("; ")[valor].split("=")[0] == id) {
-                  login = true
-                }
-              }
-            }
-            // Guardando cookie
-            if (!login) {
-              res.setHeader('Set-cookie', id + "=" + pass)
-            }
-
-            req.on('end', ()=> {
-
-              fs.readFile("./index.html", (err, data) => {
-
-                if (err) {
-                  res.writeHead(404, {'Content-Type': 'text/html'})
-                  return res.end("404 Not Found")
-                } else {
-                  res.writeHead(200, {'Content-Type': 'text/html'})
-                  res.write(data)
-                  return res.end()
-                }
-              })
-            })
-            return
-          })
-        }
-      } else {
-
-      fileName = q.pathname
-
-      let ext = fileName.split(".")[-1]
-      let mime = ""
-
-      if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
-        mime = "image/" + ext
-      }
-
-      if (ext == "css" || ext == "html" || ext == "txt"){
-        mime = "text/" + ext
-      }
-
-      if (ext == "ttf"){
-        mime = "font/" + ext
-      }
-
-      if (ext == "js"){
-        mime = "application/javascript"
-      }
-
-      //-- Peticion recibida
-      console.log("Peticion recibida: " + q.pathname)
-
-      //-- Crear mensaje de respuesta o error
-      console.log()
-        fs.readFile("." + fileName, (err, data) => {
-
-          if (err) {
-            res.writeHead(404, {'Content-Type': 'text/html'})
-            return res.end("404 Not Found")
-          } else {
-            res.writeHead(200, {'Content-Type': mime})
-            res.write(data)
-            return res.end()
+            default:
+              content = ""
           }
         })
+
+        req.on('end', ()=> {
+
+         fs.readFile(content, (err, data) => {
+
+           if (err) {
+             res.writeHead(404, {'Content-Type': 'text/html'})
+             return res.end("404 Not Found")
+           } else {
+             res.writeHead(200, {'Content-Type': 'text/html'})
+             res.write(data)
+             return res.end()
+           }
+         })
+        })
+        return
       }
 
-    } else if (q.pathname == "/myquery") {
+    } else if (q.pathname == "/register") {
 
-    //-- Leer los parámetros recibidos en la peticion
-    const params = q.query
-    let parametro1 = params.param1.toLowerCase()
+      if (req.method == 'POST') {
 
-    console.log("Parametros: " + parametro1)
+        req.on('data', chunk => {
 
-    let busqueda = ""
+          // Recogemos los datos
+          data = chunk.toString()
 
-    if (params.param1.length > 2) {
-      for (var i = 0; i < productos.length; i++) {
-        if (productos[i].toLowerCase().indexOf(parametro1) != -1) {
-            busqueda += productos[i];
+          let id = data.split("&")[0].split("=")[1]
+          let pass = data.split("&")[1].split("=")[1]
+          let login = false
+
+          console.log("Email: " + id)
+          console.log("Password: " + pass)
+
+          // Vemos si esta registrado
+          if (cookie){
+            for (let valor in cookie.split("; ")) {
+              console.log("Cookie: " + cookie.split("; ")[valor])
+              if (cookie.split("; ")[valor].split("=")[0] == id) {
+                login = true
+              }
+            }
+          }
+          // Guardando cookie
+          if (!login) {
+            res.setHeader('Set-cookie', id + "=" + pass)
+          }
+
+          req.on('end', ()=> {
+
+            fs.readFile("./index.html", (err, data) => {
+
+              if (err) {
+                res.writeHead(404, {'Content-Type': 'text/html'})
+                return res.end("404 Not Found")
+              } else {
+                res.writeHead(200, {'Content-Type': 'text/html'})
+                res.write(data)
+                return res.end()
+              }
+            })
+          })
+          return
+          })
         }
+    } else {
+
+    fileName = q.pathname
+
+    let ext = fileName.split(".")[-1]
+    let mime = ""
+
+    if (ext == "png" || ext == "jpg" || ext == "webp" || ext == "ico"){
+      mime = "image/" + ext
+    }
+
+    if (ext == "css" || ext == "html" || ext == "txt"){
+      mime = "text/" + ext
+    }
+
+    if (ext == "ttf"){
+      mime = "font/" + ext
+    }
+
+    if (ext == "js"){
+      mime = "application/javascript"
+    }
+
+    //-- Peticion recibida
+    console.log("Peticion recibida: " + q.pathname)
+
+    //-- Crear mensaje de respuesta o error
+    console.log()
+      fs.readFile("." + fileName, (err, data) => {
+
+        if (err) {
+          res.writeHead(404, {'Content-Type': 'text/html'})
+          return res.end("404 Not Found")
+        } else {
+          res.writeHead(200, {'Content-Type': mime})
+          res.write(data)
+          return res.end()
+        }
+      })
+    }
+
+  } else {
+
+  //-- Leer los parámetros recibidos en la peticion
+  const params = q.query
+  let parametro1 = params.param1.toLowerCase()
+
+  console.log("Parametros: " + parametro1)
+
+  let busqueda = ""
+
+  if (params.param1.length > 2) {
+    for (var i = 0; i < productos.length; i++) {
+      if (productos[i].toLowerCase().indexOf(parametro1) != -1) {
+          busqueda += productos[i];
       }
     }
-    //-- El array de productos lo pasamos a una cadena de texto, en formato JSON
-    busqueda = JSON.stringify(busqueda)
-    res.setHeader('Content-Type', 'application/json')
-    res.write(busqueda)
-    return res.end()
   }
+  //-- El array de productos lo pasamos a una cadena de texto, en formato JSON
+  busqueda = JSON.stringify(busqueda)
+  res.setHeader('Content-Type', 'application/json')
+  res.write(busqueda)
+  return res.end()
+}
 }
 
 //-- Inicializar el servidor
 const server = http.createServer(peticion)
-server.listen(PUERTO);
+server.listen(PUERTO)
 
 console.log("Servidor LISTO!")
 console.log("Escuchando en puerto: " + PUERTO + "\n")

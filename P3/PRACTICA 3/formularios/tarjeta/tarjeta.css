@@ -23,9 +23,6 @@ input option, select option {
 }
 
 #area {
-  background: #ffc466;
-  height: 100vh;
-  width: 100vw;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
