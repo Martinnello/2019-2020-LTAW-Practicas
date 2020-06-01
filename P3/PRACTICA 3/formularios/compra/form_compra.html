@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" dir="ltr">
   <head>
     <title>Formulario de compra</title>
     <link rel="stylesheet" type="text/css" href="form_compra.css">
@@ -10,108 +10,114 @@
 
 <body>
   <h1>Rellena tus datos para pagar</h1>
-
   <form id="form" class="topBefore" action="/pedido" method="post">
-
-      <input name="email" type="text" placeholder="E-MAIL" required>
-      <input name="password" type="text" placeholder="PASSWORD" required>
-      </br></br>
-      <div style="text-align:center">
-        <input onclick="javascript:showDivTar();" id="tarjeta" type="button" value="TARJETA">
-          <div id="div_tarjeta">
-            </br>
-            <div id="area">
-              <div class="master-card">
-                <div class="card">
-                  <div class="title">CREDIT CARD</div>
-                  <div class="input-number"><span class="title-number">CARD NUMBER</span>
-                    <div class="inputs-number">
-                      <input type="text" maxlength="4" name="number-card" placeholder="0000" />
-                      <input type="text" maxlength="4" name="number-card" placeholder="0000" />
-                      <input type="text" maxlength="4" name="number-card" placeholder="0000" />
-                      <input type="text" maxlength="4" name="number-card" placeholder="0000" />
-                    </div>
-                    <div class="selects-date selecters">
-                      <div class="day-select"><span>DIA</span>
-                        <select id="dates">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
-                          <option value="">6</option>
-                          <option value="">7</option>
-                          <option value="">8</option>
-                          <option value="">9</option>
-                          <option value="">10</option>
-                          <option value="">11</option>
-                          <option value="">12</option>
-                          <option value="">13</option>
-                          <option value="">14</option>
-                          <option value="">15</option>
-                          <option value="">16</option>
-                          <option value="">17</option>
-                          <option value="">18</option>
-                          <option value="">19</option>
-                          <option value="">20</option>
-                          <option value="">21</option>
-                          <option value="">22</option>
-                          <option value="">23</option>
-                          <option value="">24</option>
-                          <option value="">25</option>
-                          <option value="">26</option>
-                          <option value="">27</option>
-                          <option value="">28</option>
-                          <option value="">29</option>
-                          <option value="">30</option>
-                        </select>
-                      </div>
-                      <div class="year-select"><span>YEAR</span>
-                        <select id="dates">
-                          <option value="">17</option>
-                          <option value="">18</option>
-                          <option value="">19</option>
-                          <option value="">20</option>
-                          <option value="">21</option>
-                          <option value="">22</option>
-                          <option value="">23</option>
-                          <option value="">24</option>
-                          <option value="">25</option>
-                          <option value="">26</option>
-                        </select>
-                      </div>
-                    </div>
+    <input name="Nombre" type="text" placeholder="NOMBRE" required>
+    <input name="Apellidos" type="text" placeholder="APELLIDOS" required>
+    <input name="Email" type="text" placeholder="E-MAIL" required>
+    </br></br>
+    <h3>Seleccione metodo de pago</h3>
+    </br></br>
+    <div style="text-align:center">
+      <input id="tarjeta" name="Tarjeta" onclick="javascript:showDivTar();" type="button" value="TARJETA">
+      <div id="div_tarjeta">
+        </br>
+        <div id="area">
+          <div class="master-card">
+            <div class="card">
+              <div class="title">TARJETA DE CREDITO</div>
+              <div class="input-number"><span class="title-number">Nº DE TARJETA</span>
+                <div class="inputs-number">
+                  <input type="text" maxlength="4" name="number_card1" placeholder="0000">
+                  <input type="text" maxlength="4" name="number_card2" placeholder="0000">
+                  <input type="text" maxlength="4" name="number_card3" placeholder="0000">
+                  <input type="text" maxlength="4" name="number_card4" placeholder="0000">
+                </div>
+                <div class="selects-date selecters">
+                  <div class="day-select"><span>DIA</span>
+                    <select id="dates">
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">4</option>
+                      <option value="">5</option>
+                      <option value="">6</option>
+                      <option value="">7</option>
+                      <option value="">8</option>
+                      <option value="">9</option>
+                      <option value="">10</option>
+                      <option value="">11</option>
+                      <option value="">12</option>
+                      <option value="">13</option>
+                      <option value="">14</option>
+                      <option value="">15</option>
+                      <option value="">16</option>
+                      <option value="">17</option>
+                      <option value="">18</option>
+                      <option value="">19</option>
+                      <option value="">20</option>
+                      <option value="">21</option>
+                      <option value="">22</option>
+                      <option value="">23</option>
+                      <option value="">24</option>
+                      <option value="">25</option>
+                      <option value="">26</option>
+                      <option value="">27</option>
+                      <option value="">28</option>
+                      <option value="">29</option>
+                      <option value="">30</option>
+                    </select>
                   </div>
-                  <div class="mark-gold">
-                    <div class="round">
-                      <div class="circles">
-                        <div class="circle-1"> </div>
-                        <div class="circle-2"> </div>
-                      </div>
-                    </div>
+                  <div class="year-select"><span>AÑO</span>
+                    <select id="dates">
+                      <option value="">17</option>
+                      <option value="">18</option>
+                      <option value="">19</option>
+                      <option value="">20</option>
+                      <option value="">21</option>
+                      <option value="">22</option>
+                      <option value="">23</option>
+                      <option value="">24</option>
+                      <option value="">25</option>
+                      <option value="">26</option>
+                    </select>
                   </div>
                 </div>
               </div>
-              <div class="button-sent">
-                <button id="pago">PROCEDER A PAGO</button></br></br>
+              <div class="mark-gold">
+                <div class="round">
+                  <div class="circles">
+                    <div class="circle-1"> </div>
+                    <div class="circle-2"> </div>
+                  </div>
+                </div>
               </div>
             </div>
+            <div class="button-sent">
+              <input id="pago" type="submit" value="PROCEDER A PAGO"></input></br></br>
+            </div>
           </div>
-        <input onclick="javascript:showDivPaypal();" id="paypal" type="button" value="PAYPAL">
-
-        <input onclick="javascript:showDivTrans();" id="transfer" type="button" value="TRANSFERENCIA">
+        </div>
+      </div>
+      <input id="paypal" onclick="javascript:showDivPaypal();" type="button" value="PAYPAL">
+        <div id="div_paypal">
+          </br></br><input name="email_paypal" type="text" placeholder="E-MAIL PAYPAL">
+          <input name="pass_paypal" type="text" placeholder="PASSWORD PAYPAL"></br></br>
+          <div class="button-sent">
+            <input id="pago" type="submit" value="PROCEDER A PAGO"></input></br></br>
+          </div>
+        </div>
+      <input id="transfer" name="Metodo" onclick="javascript:showDivTrans();" type="button" value="TRANSFERENCIA">
         <div id="div_transfer">
           </br>
-          <input type="text" name="num_trans" placeholder="Numero de cuenta" required>
+          <input type="text" name="num_trans" placeholder="NUMERO DE LA CUENTA" required>
+          <input type="text" name="cantidad" placeholder="CANTIDAD EN EUROS" required>
           <div id="area">
             <div class="button-sent">
-              <input type="submit" value="PROCEDER A PAGO"id="pago"></input></br></br>
+              <input id="pago" type="submit" value="PROCEDER A PAGO"></input></br></br>
             </div>
           </div>
           </br>
         </div>
-      </div>
-    </form>
+  </form>
 </body>
-
 </html>

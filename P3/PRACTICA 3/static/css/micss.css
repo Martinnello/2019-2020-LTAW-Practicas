@@ -25,7 +25,13 @@ h4 {
 }
 
 body {
-  background-color:  #dbcfff;
+  background-color:  #905AFC;
+}
+
+#factura{
+  border-radius: 2px;
+  border-color: black;
+  font-family: "Naruto";
 }
 
 #buscador {

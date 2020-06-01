@@ -137,34 +137,80 @@ function peticion(req, res) {
 
         if (req.method == 'POST') {
 
-
           req.on('data', chunk => {
 
             data = chunk.toString()
 
             console.log(data)
-            for (let valor in cookie.split("& ")) {
-              email = data.split("&")[valor].split("=")[1]
-              pass = data.split("&")[valor].split("=")[1]
-            }
+
+            nombre = data.split("&")[0].split("=")[1]
+            apellidos = data.split("&")[1].split("=")[1]
+            email = data.split("&")[2].split("=")[1]
+            //metodo =  data.split("&")[3].split("=")[1]
+            number_card1 = data.split("&")[3].split("=")[1]
+            number_card2 = data.split("&")[4].split("=")[1]
+            number_card3 = data.split("&")[5].split("=")[1]
+            number_card4 = data.split("&")[6].split("=")[1]
+            email_paypal = data.split("&")[7].split("=")[1]
+            pass_paypal = data.split("&")[8].split("=")[1]
+            num_trans = data.split("&")[9].split("=")[1]
+            cantidad = data.split("&")[10].split("=")[1]
+
+            console.log(nombre)
+            console.log(apellidos)
             console.log(email)
-            console.log(pass)
+            console.log(number_card1)
+            console.log(number_card2)
+            console.log(number_card3)
+            console.log(number_card4)
+            console.log(email_paypal)
+            console.log(pass_paypal)
+            console.log(num_trans)
+            console.log(cantidad)
+
+            //for (let valor in cookie.split(": ")) {
+            productos = cookie.split(": ")[1]
+            //}
+
+            console.log(productos)
+
+            content = `
+              <!DOCTYPE html>
+              <html lang="es" dir="ltr">
+                <head>
+                  <meta charset="utf-8">
+                  <title>PS4 GAMES</title>
+                  <link rel="stylesheet" href="static/css/micss.css">
+                </head>
+                <body>
+                  <div class="portada">
+                    <br>
+                    <h1 style="color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
+                    <br>
+                  </div>
+                  <br>
+                  <div id="factura" style="text-align:center" >
+                      <h2>FACTURA:</h2><br>
+                    <div>
+                      <p>`
+              content += 'Nombre: ' + nombre + "<br><br><br> Apellidos: "
+                          + apellidos + "<br><br><br> Email: " + email
+            //             + "<br>Forma de pago: " + pago
+                          + "<br><br><br>Tus productos son: <br>" + productos;
+              content +=
+                    `</p>
+                    </div>
+                  </div>
+                  <br><br>
+                  <a style="text-align:center" href="/"><h2>INICIO</h2></a>
+                </body>
+              </html> `
 
             req.on('end', ()=> {
-
-              fs.readFile("./index_registrado.html", (err, data) => {
-
-                if (err) {
-                  res.writeHead(404, {'Content-Type': 'text/html'})
-                  return res.end("404 Not Found")
-                } else {
                   res.writeHead(200, {'Content-Type': 'text/html'})
-                  res.write(data)
+                  res.write(content)
                   return res.end()
-                }
-              })
-            })
-            return
+                })
             })
           }
     } else if (q.pathname == "/compra") {
