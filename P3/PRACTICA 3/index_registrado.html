@@ -8,16 +8,14 @@
     <script src="clientP3.js" defer></script>
   </head>
   <body>
-
     <div class="portada">
       <br>
       <h1 style="color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
       <br>
     </div>
     <br>
-
     <div>
-      <form id= "registrador" action="/login" method="post">
+      <form id= "registrador">
           <div class="container2">
             <div class="right">
               <div class="form">
@@ -26,7 +24,10 @@
             </div>
           </div>
       </form>
-
+      <h5> Para comprar haz click en el carrito</h5>
+      <a id="carrito" href= "/formularios/form_compra.html">
+        <img  src="/static/Img/carrito.png" width="40px" height="40px">
+      </a>
       <form id= "buscador" action="/search" method="post">
           <input id="ver" autocomplete=off placeholder="Encuentra tus juegos" type=search name="busqueda" list="productos"/>
           <datalist id="productos">
@@ -34,12 +35,7 @@
           </datalist>
           <input type="submit" value="Buscar"/>
       </form>
-      <br><br>
-      <a id="carrito" href= "/formularios/compra/form_compra.html">
-        <img  src="/static/Img/carrito.png" width="40px" height="40px">
-      </a>
     </div>
-
     <div class="products2">
       <br><br>
       <h2>  Productos: </h2>
@@ -49,6 +45,5 @@
       <a href= /productos/darksouls.html><img src="/static/Img/dark-souls.jpg" width="200" height="300"></a>
       </div>
     </div>
-
   </body>
 </html>

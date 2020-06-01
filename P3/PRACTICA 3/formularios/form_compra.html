@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <title>Formulario de compra</title>
+    <link rel="stylesheet" type="text/css" href="form_compra.css">
+  </head>
+
+<body>
+  <h1>Rellena tus datos para proceder al pago</h1>
+  <form id="form" class="topBefore" action="/factura" method="post">
+    <input id="rellenar" name="Nombre" type="text" placeholder="NOMBRE" required>
+    <input id="rellenar" name="Apellidos" type="text" placeholder="APELLIDOS" required>
+    <input id="rellenar" name="Email" type="text" placeholder="E-MAIL" required>
+    </br></br>
+    <h3>Seleccione metodo de pago</h3>
+    <div style="text-align:center">
+      <select name="metodo" required>
+        <option value="Tarjeta de credito">Tarjeta de Credito</option>
+        <option value="Paypal">Paypal</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+      <br><br>
+      <input id="rellenar" type="submit" value="Ver mi factura antes de pagar">
+    </div>
+  </form>
+</body>
+</html>

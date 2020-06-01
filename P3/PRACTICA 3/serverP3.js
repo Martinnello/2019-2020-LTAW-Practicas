@@ -133,7 +133,7 @@ function peticion(req, res) {
           return
           })
         }
-    } else if (q.pathname == "/pedido") {
+    } else if (q.pathname == "/factura") {
 
         if (req.method == 'POST') {
 
@@ -146,33 +146,19 @@ function peticion(req, res) {
             nombre = data.split("&")[0].split("=")[1]
             apellidos = data.split("&")[1].split("=")[1]
             email = data.split("&")[2].split("=")[1]
-            //metodo =  data.split("&")[3].split("=")[1]
-            number_card1 = data.split("&")[3].split("=")[1]
-            number_card2 = data.split("&")[4].split("=")[1]
-            number_card3 = data.split("&")[5].split("=")[1]
-            number_card4 = data.split("&")[6].split("=")[1]
-            email_paypal = data.split("&")[7].split("=")[1]
-            pass_paypal = data.split("&")[8].split("=")[1]
-            num_trans = data.split("&")[9].split("=")[1]
-            cantidad = data.split("&")[10].split("=")[1]
+            metodo = data.split("&")[3].split("=")[1]
 
             console.log(nombre)
             console.log(apellidos)
             console.log(email)
-            console.log(number_card1)
-            console.log(number_card2)
-            console.log(number_card3)
-            console.log(number_card4)
-            console.log(email_paypal)
-            console.log(pass_paypal)
-            console.log(num_trans)
-            console.log(cantidad)
+            console.log(metodo)
 
-            //for (let valor in cookie.split(": ")) {
-            productos = cookie.split(": ")[1]
-            //}
+            for (var i = 1; i <= cookie.split("/"); i++) {
+              var products_carrito = cookie.split("/")[i]
+              console.log(products_carrito)
+            }
 
-            console.log(productos)
+            console.log(cookie)
 
             content = `
               <!DOCTYPE html>
@@ -194,9 +180,9 @@ function peticion(req, res) {
                     <div>
                       <p>`
               content += 'Nombre: ' + nombre + "<br><br><br> Apellidos: "
-                          + apellidos + "<br><br><br> Email: " + email
-            //             + "<br>Forma de pago: " + pago
-                          + "<br><br><br>Tus productos son: <br>" + productos;
+                         + apellidos + "<br><br><br> Email: " + email +
+                         "<br><br><br> Metodo de pago: " + metodo
+                         + "<br><br><br>Tus productos en carrito son: <br>" + products_carrito
               content +=
                     `</p>
                     </div>
@@ -213,7 +199,7 @@ function peticion(req, res) {
                 })
             })
           }
-    } else if (q.pathname == "/compra") {
+    } else if (q.pathname == "/carrito") {
 
           req.on('data', chunk => {
 
@@ -230,7 +216,7 @@ function peticion(req, res) {
                 id = cookie.split("; ")[valor].split("=")[0]
                 pass = cookie.split("; ")[valor].split("=")[1]
               }
-              res.setHeader('Set-cookie', id + "=" + pass + ":" + name_producto)
+              res.setHeader('Set-cookie', id + "=" + pass + "/" + name_producto)
             }
 
             req.on('end', ()=> {
