@@ -15,3 +15,5 @@ Los pasos a seguir son:
   3- Una vez nos hemos logueado, se guardan las cookies de email y password. Ademas tenemos acceso al carrito de compra. Si añadimos cualquiera de los productos al carrito (boton habilitado para ello en cada uno de los html de cada producto, accesibles desde busqueda o pinchando directamente encima de ellos), se añadira a la misma cookie del login, seguido de "/"
 
   4- Pinchando en la imagen del carrito accedemos al html de formulario de compra, donde debemos rellenar los campos que se nos piden, seleccionar el metodo de pago y pulsar en "ver mi factura antes de pagar" y asi poder ver los datos añadidos. Si no hemos seleccionado ningun producto no aparecera en la factura, si añadimos varias veces el mismo producto aparecera repetido.
+
+  Todas las peticiones o envios quedan registrados en la consola

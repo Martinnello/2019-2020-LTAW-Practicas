@@ -18,3 +18,5 @@ Si ponemos /date nos indica la fecha y hora actual GMT +02
 Cuando un nuevo usuario se conecta, se comunica a todos los usuarios previamente conectados, indicando el nombre de este nuevo usuario y la posicion en la que se conecto.
 
 Cada vez que cualquier usuario envia un mensaje, a los demas les aparece (nick: mensaje enviado), pueden establecer la comunicacion en chat todos los usuarios que abran una nuevo pagina en el navegador en http://localhost:8080/
+
+Todas las peticiones o envios quedan registrados en la consola
