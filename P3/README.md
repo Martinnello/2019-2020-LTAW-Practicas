@@ -1,6 +1,10 @@
 # Práctica 3
 
+Todos los ficheros necesarios se encuentran en la carpeta PRACTICA 3
 Se debe abrir con Google Chrome, Safari, Opera... con Firefox el buscador no funciona como debe.
+Para ejecutar en local debemos abrir la consola de nuestro ordenador y usar node serverP3.js
+
+En el navegador vamos a http://localhost:8080/
 
 Los pasos a seguir son:
 
