@@ -153,12 +153,16 @@ function peticion(req, res) {
             console.log(email)
             console.log(metodo)
 
-            for (var i = 1; i <= cookie.split("/"); i++) {
+            for (var i = 1; i =3; i++){
               var products_carrito = cookie.split("/")[i]
-              console.log(products_carrito)
             }
+            console.log(products_carrito)
 
-            console.log(cookie)
+            //for (var i in cookie.split("/")) {
+            //  products_carrito += cookie.split(":")[i]
+            //}
+
+
 
             content = `
               <!DOCTYPE html>
@@ -217,25 +221,39 @@ function peticion(req, res) {
                 pass = cookie.split("; ")[valor].split("=")[1]
               }
               res.setHeader('Set-cookie', id + "=" + pass + "/" + name_producto)
-            }
 
-            req.on('end', ()=> {
+              req.on('end', ()=> {
 
-              fs.readFile("./index_registrado.html", (err, data) => {
+                fs.readFile("./index_registrado.html", (err, data) => {
 
-                if (err) {
-                  res.writeHead(404, {'Content-Type': 'text/html'})
-                  return res.end("404 Not Found")
-                } else {
-                  res.writeHead(200, {'Content-Type': 'text/html'})
-                  res.write(data)
-                  return res.end()
-                }
+                  if (err) {
+                    res.writeHead(404, {'Content-Type': 'text/html'})
+                    return res.end("404 Not Found")
+                  } else {
+                    res.writeHead(200, {'Content-Type': 'text/html'})
+                    res.write(data)
+                    return res.end()
+                  }
+                })
               })
-            })
+            } else{
+              req.on('end', ()=> {
+
+                fs.readFile("./index_must_log.html", (err, data) => {
+
+                  if (err) {
+                    res.writeHead(404, {'Content-Type': 'text/html'})
+                    return res.end("404 Not Found")
+                  } else {
+                    res.writeHead(200, {'Content-Type': 'text/html'})
+                    res.write(data)
+                    return res.end()
+                  }
+                })
+              })
+            }
             return
             })
-
     } else {
 
     fileName = q.pathname
