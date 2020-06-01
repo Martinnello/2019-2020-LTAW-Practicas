@@ -153,16 +153,13 @@ function peticion(req, res) {
             console.log(email)
             console.log(metodo)
 
-            for (var i = 1; i =3; i++){
-              var products_carrito = cookie.split("/")[i]
+            var products_carrito = ""
+
+            for (var i = 1; i<cookie.split("/").length; i++){
+              products_carrito += " " + cookie.split("/")[i]
             }
-            console.log(products_carrito)
 
-            //for (var i in cookie.split("/")) {
-            //  products_carrito += cookie.split(":")[i]
-            //}
-
-
+            console.log("Productos carrito:" + products_carrito)
 
             content = `
               <!DOCTYPE html>
