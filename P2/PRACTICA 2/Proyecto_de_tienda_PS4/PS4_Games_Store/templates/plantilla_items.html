@@ -7,11 +7,16 @@
       <h2>  Productos: </h2>
       <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
       <div style = "text-align:center">
-          <h3>{{Item.nombre}}</h3>
-          <img src="{% static Item.imagen %}" width="200" height="300">
-          <p>{{Item.descripcion}}</p></br>
-            Stock: <b>{{Item.stock}}</b></br></br>
-            Precio: <b>{{Item.precio}} €</b></br></br>
-          <a href="compra">¿Quieres comprar el producto? Haz click aqui</a>
+
+            <h3>{{Item.nombre}}</h3>
+            <img src="{% static Item.imagen %}" width="200" height="300">
+            <p>{{Item.descripcion}}</p></br>
+              {% if Item.stock > 0 %}
+                Stock: <b>{{Item.stock}}</b></br></br>
+                Precio: <b>{{Item.precio}} €</b></br></br>
+                <a href="compra">¿Quieres comprar el producto? Haz click aqui</a>
+              {% else %}
+                <b>No queda stock</b></br></br>
+              {% endif %}
       </div>
 {%endblock%}

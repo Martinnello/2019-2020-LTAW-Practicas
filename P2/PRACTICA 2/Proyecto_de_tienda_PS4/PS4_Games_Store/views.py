@@ -35,6 +35,9 @@ def factura(request):
         # -- Imprimirlo en la consola del servidor y en factura.html
         print(f" Se ha recibido un pedido... {email} Solicita la compra de {producto}")
         item = Producto.objects.get(nombre=producto)
-        return render(request, 'factura.html', {'Item':item, 'Email':email})
+        if item.stock > 0:
+            item.stock -= 1
+            item.save()
+            return render(request, 'factura.html', {'Item':item, 'Email':email})
     except:
         return HttpResponse("Error 404: File not found. <br><br> EL PRODUCTO NO SE ENCUENTRA EN NUESTRA LISTA DE PRODUCTOS!!!")
