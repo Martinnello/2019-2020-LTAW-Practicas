@@ -28,9 +28,13 @@ def compra(request):
     return render(request, 'compra.html', {})
 
 def factura(request):
-    # -- Obtener el nombre de la persona
-    nombre = request.POST['nombre']
-    producto = request.POST['producto']
-    # -- Imprimirlo en la consola del servidor
-    print(f" Se ha recibido un pedido... {nombre} Solicita la compra de {producto}")
-    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'] + ", Producto solicitado: " + request.POST['producto'])
+    try:
+        # -- Obtener el nombre de la persona y producto del formulario
+        email = request.POST['email']
+        producto = request.POST['producto']
+        # -- Imprimirlo en la consola del servidor y en factura.html
+        print(f" Se ha recibido un pedido... {email} Solicita la compra de {producto}")
+        item = Producto.objects.get(nombre=producto)
+        return render(request, 'factura.html', {'Item':item, 'Email':email})
+    except:
+        return HttpResponse("Error 404: File not found. <br><br> EL PRODUCTO NO SE ENCUENTRA EN NUESTRA LISTA DE PRODUCTOS!!!")

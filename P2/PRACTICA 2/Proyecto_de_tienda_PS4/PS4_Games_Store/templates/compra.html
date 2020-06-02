@@ -6,7 +6,7 @@
     <form  action="/PS4_Games_Store/factura/" method="post">
       {% csrf_token %}
       <center>
-        <input type="text" name="nombre" autocomplete="off" placeholder="Nombre" required/>
+        <input type="text" name="email" autocomplete="off" placeholder="Email" required/>
         <input type="text" name="producto" autocomplete="off" placeholder="Producto a añadir" required/>
         <input type="submit" value="Solicitar compra" />
       </center>
