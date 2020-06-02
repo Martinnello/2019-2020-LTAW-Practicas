@@ -1,8 +1,8 @@
 # Práctica 4
 
-Todos los ficheros necesarios se encuentran en la carpeta PRACTICA 4
+Todos los ficheros necesarios se encuentran en la carpeta PRACTICA 4.
 
-Esta practica se ha realizado en Google Chrome
+Esta practica se ha realizado en Google Chrome.
 Para ejecutar en local debemos abrir la consola de nuestro ordenador y usar node Chat_AMM.js
 
 Primero debemos indicar nuestro nick (nombre)
@@ -19,4 +19,4 @@ Cuando un nuevo usuario se conecta, se comunica a todos los usuarios previamente
 
 Cada vez que cualquier usuario envia un mensaje, a los demas les aparece (nick: mensaje enviado), pueden establecer la comunicacion en chat todos los usuarios que abran una nuevo pagina en el navegador en http://localhost:8080/
 
-Todas las peticiones o envios quedan registrados en la consola
+Todas las peticiones o envios quedan registrados en la consola.
