@@ -15,3 +15,13 @@ class Producto(models.Model):
     # -- Usamos el nombre para identificar el producto
     def __str__(self):
         return self.nombre
+
+class Pedido(models.Model):
+    """Modelo de datos de clientes"""
+
+    usuario = models.CharField(max_length=50)
+    juego =  models.CharField(max_length=50)
+
+    # -- Usamos el nombre para identificar el producto
+    def __str__(self):
+        return self.usuario

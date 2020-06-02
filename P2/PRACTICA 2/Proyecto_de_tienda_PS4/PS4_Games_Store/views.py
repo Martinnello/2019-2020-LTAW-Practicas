@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from random import randint
 from django.template import Template, Context
 from django.template.loader import get_template
-from PS4_Games_Store.models import Producto
+from PS4_Games_Store.models import Producto, Pedido
 
 # Create your views here.
 
@@ -32,12 +32,17 @@ def factura(request):
         # -- Obtener el nombre de la persona y producto del formulario
         email = request.POST['email']
         producto = request.POST['producto']
+
+        # -- Agregamos al admin
+        user = Pedido(usuario=email, juego=producto)
         # -- Imprimirlo en la consola del servidor y en factura.html
         print(f" Se ha recibido un pedido... {email} Solicita la compra de {producto}")
         item = Producto.objects.get(nombre=producto)
+
         if item.stock > 0:
             item.stock -= 1
             item.save()
+            user.save()
             return render(request, 'factura.html', {'Item':item, 'Email':email})
     except:
         return HttpResponse("Error 404: File not found. <br><br> EL PRODUCTO NO SE ENCUENTRA EN NUESTRA LISTA DE PRODUCTOS!!!")

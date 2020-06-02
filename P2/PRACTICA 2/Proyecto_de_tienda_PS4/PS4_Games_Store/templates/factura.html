@@ -6,7 +6,6 @@
       {% csrf_token %}
       <center>
         <h2>  Producto Solicitado: </h2>
-        <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
         <div style = "text-align:center">
             <h3>Datos recibidos!! Comprador: {{Email}} / Producto solicitado: {{Item.nombre}}</h3><br><br>
             <h4> Nos pondremos en contacto contigo para proceder al pago! </h4>
