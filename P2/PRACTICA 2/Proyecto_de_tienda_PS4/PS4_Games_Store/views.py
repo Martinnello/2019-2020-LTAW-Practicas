@@ -23,3 +23,14 @@ def plantilla_items(request, path):
         return render (request, 'plantilla_items.html', {'Item': producto})
     except:
         return HttpResponse("Error 404: File not found")
+
+def compra(request):
+    return render(request, 'compra.html', {})
+
+def factura(request):
+    # -- Obtener el nombre de la persona
+    persona = request.POST['nombre']
+    email = request.POST['email']
+    # -- Imprimirlo en la consola del servidor
+    print(f" PEDIDO RECIBIDO!!! ----> {persona} + {email}")
+    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'] + request.POST['email'])

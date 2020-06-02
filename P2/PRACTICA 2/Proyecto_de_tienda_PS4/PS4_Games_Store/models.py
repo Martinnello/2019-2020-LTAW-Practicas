@@ -10,7 +10,7 @@ class Producto(models.Model):
     path = models.CharField(max_length=50, default="Indica url del producto")
     descripcion = models.CharField(max_length=2000, default="Indica aqui la descripcion")
     stock = models.IntegerField(default=10)
-    precio = models.FloatField(default=59.99)
+    precio = models.FloatField(default=59.90)
 
     # -- Usamos el nombre para identificar el producto
     def __str__(self):

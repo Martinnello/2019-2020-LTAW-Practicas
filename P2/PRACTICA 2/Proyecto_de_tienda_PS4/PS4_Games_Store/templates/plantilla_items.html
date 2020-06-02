@@ -10,7 +10,8 @@
           <h3>{{Item.nombre}}</h3>
           <img src="{% static Item.imagen %}" width="200" height="300">
           <p>{{Item.descripcion}}</p></br>
-          <b>Stock --> {{Item.stock}}</b></br></br>
-          <b>Precio --> {{Item.precio}} €</b></br>
+            Stock: <b>{{Item.stock}}</b></br></br>
+            Precio: <b>{{Item.precio}} €</b></br></br>
+          <a href="compra">¿Quieres comprar el producto? Haz click aqui</a>
       </div>
 {%endblock%}

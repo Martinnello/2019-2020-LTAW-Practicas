@@ -10,5 +10,7 @@ urlpatterns = [
     # -- Vista pricipal (índice)
     path('', views.index, name='index'),
     path('<path>.html', views.plantilla_items, name='plantilla_items'),
-    path('carrito/', views.carrito, name='carrito'),
+    path('compra/', views.compra, name='compra'),
+    path('factura/', views.factura, name='factura'),
+    path('carrito/', views.carrito, name='carrito')
 ]
