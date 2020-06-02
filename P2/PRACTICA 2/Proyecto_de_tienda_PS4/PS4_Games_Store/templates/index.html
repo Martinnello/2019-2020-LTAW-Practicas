@@ -1,31 +1,16 @@
+{% extends "cabecera_pie.html" %}
 {% load staticfiles %}
+{%block content%}
 
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>PS4 GAMES</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/micss.css">
-    <link rel="icon" href="/static/css/luffy.ico" type="image/x-icon">
-  </head>
-  <body>
-
-    <div class="portada">
-    <br>
-    <h1 style = "color:white; padding-top:8%">  Todos los juegos en menos de 24 horas en casa</h1>
-    <br>
-  </div>
-
-    <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
     <div class="products">
+    </br></br></br>
       <h2>  Productos: </h2>
-
+      <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
       <div style = "text-align:center">
-        <a href="plantilla_items"> <img src="{% static 'Img/death_stranding.jpg'%}" width="200" height="300"> </a>
-        <a href="plantilla_items"> <img src="{% static 'Img/bloodborne.jpg'%}" width="200" height="300"> </a>
-        <a href="plantilla_items"> <img src="{% static 'Img/dark-souls.jpg'%}" width="200" height="300"> </a>
+        <ul>
+        {% for item in Items %}
+            <a href="{{item.path}}"><img src="{% static item.imagen %}" width="200" height="300"></a>
+        {% endfor %}
+        </ul>
       </div>
-    </div>
-
-  </body>
-</html>
+{%endblock%}

@@ -1,13 +1,16 @@
+{% extends "cabecera_pie.html" %}
 {% load staticfiles %}
+{%block content%}
 
-<!DOCTYPE html>
-  <html lang="es" dir="ltr">
-    <head>
-      <meta charset="utf-8">
-      <title>Plantilla Items</title>
-    </head>
-    <body>
-      <h1>PLANTILLA</h1>
-      <p> Numero aleatorio:  {{numero}} </p>
-    </body>
-  </html>
+    <div class="products">
+    </br></br></br>
+      <h2>  Productos: </h2>
+      <a href="carrito"> <img src="{% static 'Img/carrito.png'%}" width="40" height="40" align="right" z-index="-1" position="fixed"> </a>
+      <div style = "text-align:center">
+          <h3>{{Item.nombre}}</h3>
+          <img src="{% static Item.imagen %}" width="200" height="300">
+          <p>{{Item.descripcion}}</p></br>
+          <b>Stock --> {{Item.stock}}</b></br></br>
+          <b>Precio --> {{Item.precio}} €</b></br>
+      </div>
+{%endblock%}

@@ -3,28 +3,23 @@ from django.http import HttpResponse
 from random import randint
 from django.template import Template, Context
 from django.template.loader import get_template
+from PS4_Games_Store.models import Producto
 
 # Create your views here.
 
 def index(request):
-        numero = randint(0, 100)
-        return render(request, 'index.html', {'numero':str(numero)})
+    productos = Producto.objects.all()
+    return render(request, 'index.html', {'Items':productos})
 
 def carrito(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
     return render(request, 'carrito.html', {'numero':str(numero)})
 
-def plantilla_items(request):
-    # -- Obtener el número aleatorio
-    numero = randint(0, 100)
-
-    # -- Leer la plantilla del fichero
-    t = get_template('plantilla_items.html')
-
-    # -- Crear el contexto: Asignar el numero
-    c = {'numero': str(numero)}
-
-    # -- Obtener la pagina html final
-    html = t.render(c)
-    return HttpResponse(html)
+# Pagina de cada producto
+def plantilla_items(request, path):
+    try:
+        producto = Producto.objects.get(path__startswith=path)
+        return render (request, 'plantilla_items.html', {'Item': producto})
+    except:
+        return HttpResponse("Error 404: File not found")

@@ -9,6 +9,6 @@ from . import views
 urlpatterns = [
     # -- Vista pricipal (índice)
     path('', views.index, name='index'),
-    path('plantilla_items/', views.plantilla_items, name='plantilla_items'),
+    path('<path>.html', views.plantilla_items, name='plantilla_items'),
     path('carrito/', views.carrito, name='carrito'),
 ]
