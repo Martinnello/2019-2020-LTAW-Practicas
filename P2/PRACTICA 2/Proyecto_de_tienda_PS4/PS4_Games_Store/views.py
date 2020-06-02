@@ -29,8 +29,8 @@ def compra(request):
 
 def factura(request):
     # -- Obtener el nombre de la persona
-    persona = request.POST['nombre']
-    email = request.POST['email']
+    nombre = request.POST['nombre']
+    producto = request.POST['producto']
     # -- Imprimirlo en la consola del servidor
-    print(f" PEDIDO RECIBIDO!!! ----> {persona} + {email}")
-    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'] + request.POST['email'])
+    print(f" Se ha recibido un pedido... {nombre} Solicita la compra de {producto}")
+    return HttpResponse("Datos recibidos!!. Comprador: " + request.POST['nombre'] + ", Producto solicitado: " + request.POST['producto'])
