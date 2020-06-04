@@ -146,6 +146,7 @@ function peticion(req, res) {
             nombre = data.split("&")[0].split("=")[1]
             apellidos = data.split("&")[1].split("=")[1]
             email = data.split("&")[2].split("=")[1]
+            email = email.replace("%40","@")
             metodo = data.split("&")[3].split("=")[1]
 
             console.log(nombre)
