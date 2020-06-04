@@ -11,6 +11,7 @@ def index(request):
     productos = Producto.objects.all()
     return render(request, 'index.html', {'Items':productos})
 
+# NO USADO
 def carrito(request):
     # -- Obtener el número aleatorio
     numero = randint(0, 100)
@@ -24,9 +25,11 @@ def plantilla_items(request, path):
     except:
         return HttpResponse("Error 404: File not found")
 
+# Para entrar en la pagina formulario
 def compra(request):
     return render(request, 'compra.html', {})
 
+# Acciones al hacer la compra
 def factura(request):
     try:
         # -- Obtener el nombre de la persona y producto del formulario
@@ -39,6 +42,7 @@ def factura(request):
         print(f" Se ha recibido un pedido... {email} Solicita la compra de {producto}")
         item = Producto.objects.get(nombre=producto)
 
+        # Reducimos su stock y guardamos registro usuario en admin
         if item.stock > 0:
             item.stock -= 1
             item.save()

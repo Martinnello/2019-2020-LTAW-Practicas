@@ -22,6 +22,5 @@ class Pedido(models.Model):
     usuario = models.CharField(max_length=50)
     juego =  models.CharField(max_length=50)
 
-    # -- Usamos el nombre para identificar el producto
     def __str__(self):
         return self.usuario

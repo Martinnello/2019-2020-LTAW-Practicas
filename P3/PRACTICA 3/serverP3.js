@@ -18,6 +18,7 @@ function peticion(req, res) {
   var q = url.parse(req.url, true)
   let cookie = req.headers.cookie
 
+  // Cuando no gestionamos peticiones
   if (q.pathname != "/myquery") {
 
     if (q.pathname == "/" ) {
@@ -36,6 +37,7 @@ function peticion(req, res) {
         }
       })
 
+    // Para gestionar las busquedas que vienen por formulario
     } else if (q.pathname == "/search") {
 
         if (req.method === 'POST') {
@@ -86,6 +88,7 @@ function peticion(req, res) {
         return
       }
 
+    // Gestiona el logueo del usuario
     } else if (q.pathname == "/login") {
 
       if (req.method == 'POST') {
@@ -111,6 +114,7 @@ function peticion(req, res) {
               }
             }
           }
+
           // Guardando cookie
           if (!login) {
             res.setHeader('Set-cookie', id + "=" + pass)
@@ -133,6 +137,7 @@ function peticion(req, res) {
           return
           })
         }
+    // Para la creacion de la pagina de facturacion
     } else if (q.pathname == "/factura") {
 
         if (req.method == 'POST') {
@@ -156,6 +161,7 @@ function peticion(req, res) {
 
             var products_carrito = ""
 
+            // Cogemos los productos del carrito
             for (var i = 1; i<cookie.split("/").length; i++){
               products_carrito += " " + cookie.split("/")[i]
             }
@@ -201,6 +207,7 @@ function peticion(req, res) {
                 })
             })
           }
+    // Para añadir productos al carrito
     } else if (q.pathname == "/carrito") {
 
           req.on('data', chunk => {
@@ -218,6 +225,7 @@ function peticion(req, res) {
                 id = cookie.split("; ")[valor].split("=")[0]
                 pass = cookie.split("; ")[valor].split("=")[1]
               }
+              // Añadimos el producto en el valor de la cookie
               res.setHeader('Set-cookie', id + "=" + pass + "/" + name_producto)
 
               req.on('end', ()=> {
@@ -252,6 +260,7 @@ function peticion(req, res) {
             }
             return
             })
+    // Para gestionar las peticiones
     } else {
 
     fileName = q.pathname
@@ -292,10 +301,9 @@ function peticion(req, res) {
         }
       })
     }
-
+  //-- Leer los parámetros recibidos en la peticion del buscador
   } else {
 
-  //-- Leer los parámetros recibidos en la peticion
   const params = q.query
   let parametro1 = params.param1.toLowerCase()
 

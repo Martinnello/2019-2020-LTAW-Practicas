@@ -55,6 +55,7 @@ function peticion(req, res) {
     }
   })
 }
+
 //-- Inicializar el servidor
 const server = http.createServer(peticion)
 server.listen(PUERTO);

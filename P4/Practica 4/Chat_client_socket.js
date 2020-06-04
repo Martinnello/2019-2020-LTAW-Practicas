@@ -15,7 +15,7 @@ socket.emit('new', nick)
 
 console.log(nick + " se ha conectado")
 
-//-- Se ha recibido un mensaje "new"
+//-- Se ha recibido un mensaje "new" (para nuevo usuario)
 socket.on('new', (msg) => {
   display.innerHTML += "<br> > " + msg
 })
